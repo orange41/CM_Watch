@@ -1,0 +1,27 @@
+/* app/assets/stylesheets/styles.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  background-color: #343a40;
+  color: white;
+}
+
+main {
+  margin: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: auto;
+}
+
+label, input, button {
+  margin-bottom: 10px;
+}
