@@ -1,22 +1,23 @@
+<!-- app/views/homes/admin_login.html.erb -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>管理者 ログイン</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>管理者ログイン</title>
+    <%= stylesheet_link_tag 'styles', media: 'all' %>
 </head>
 <body>
     <header>
-        <h1>管理者 ログイン</h1>
+        <h1>管理者ログイン</h1>
     </header>
     <main>
-        <form action="admin_dashboard.html" method="post">
+        <%= form_with url: admin_dashboard_path, method: :post do %>
             <label for="email">メールアドレス:</label>
-            <input type="email" id="email" name="email" required>
+            <%= email_field_tag :email, nil, required: true %>
             <label for="password">パスワード:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">ログイン</button>
-        </form>
+            <%= password_field_tag :password, nil, required: true %>
+            <%= submit_tag 'ログイン' %>
+        <% end %>
     </main>
 </body>
 </html>
