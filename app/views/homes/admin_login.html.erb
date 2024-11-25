@@ -11,7 +11,7 @@
         <h1>管理者ログイン</h1>
     </header>
     <main>
-        <%= form_with url: admin_dashboard_path, method: :post do %>
+        <%= form_with url: admin_session_path, method: :post do %>
             <label for="email">メールアドレス:</label>
             <%= email_field_tag :email, nil, required: true %>
             <label for="password">パスワード:</label>
