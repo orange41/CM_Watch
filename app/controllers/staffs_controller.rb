@@ -4,6 +4,7 @@ class StaffsController < ApplicationController
 
   def show
     @staff = current_staff
+    render 'staffs/show'
   end
 
   def edit
@@ -13,7 +14,7 @@ class StaffsController < ApplicationController
   def update
     @staff = current_staff
     if @staff.update(staff_params)
-      redirect_to staff_dashboard_path, notice: 'パスワードが更新されました。'
+      redirect_to staff_dashboard_path, notice: 'プロフィールが更新されました。'
     else
       render :edit
     end

@@ -1,0 +1,29 @@
+<!-- app/views/homes/staff_login.html.erb -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>スタッフログイン</title>
+    <link rel="stylesheet" href="<%= asset_path 'styles.css' %>">
+</head>
+<body>
+    <header>
+        <h1>スタッフログイン</h1>
+    </header>
+    <main>
+        <%= form_with url: new_staff_session_path, method: :post do %>
+            <div>
+                <%= label_tag :employee_number, '社員番号' %>
+                <%= text_field_tag :employee_number, nil, required: true %>
+            </div>
+            <div>
+                <%= label_tag :password, 'パスワード' %>
+                <%= password_field_tag :password, nil, required: true %>
+            </div>
+            <div>
+                <%= submit_tag 'ログイン' %>
+            </div>
+        <% end %>
+    </main>
+</body>
+</html>

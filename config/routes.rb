@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'homes#top'
+  root 'homes#index'
   get 'staff_login', to: 'homes#staff_login'
   get 'admin_login', to: 'homes#admin_login'
   get 'staff_dashboard', to: 'staffs#show'

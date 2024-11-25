@@ -1,0 +1,19 @@
+<!-- app/views/incidents/index.html.erb -->
+<h1>事故事例一覧</h1>
+<%= link_to '新しい事故事例を投稿', new_staff_incident_path(current_staff) %>
+<table>
+  <tr>
+    <th>タイトル</th>
+    <th>説明</th>
+    <th>アクション</th>
+  </tr>
+  <% @incidents.each do |incident| %>
+    <tr>
+      <td><%= incident.title %></td>
+      <td><%= incident.description %></td>
+      <td>
+        <%= link_to '詳細', staff_incident_path(current_staff, incident) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

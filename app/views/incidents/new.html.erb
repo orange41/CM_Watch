@@ -1,0 +1,15 @@
+<!-- app/views/incidents/new.html.erb -->
+<h1>新しい事故事例を投稿</h1>
+<%= form_with model: [current_staff, @incident], url: staff_incidents_path(current_staff) do |form| %>
+  <div>
+    <%= form.label :title, 'タイトル' %>
+    <%= form.text_field :title, required: true %>
+  </div>
+  <div>
+    <%= form.label :description, '説明' %>
+    <%= form.text_area :description, required: true %>
+  </div>
+  <div>
+    <%= form.submit '投稿' %>
+  </div>
+<% end %>

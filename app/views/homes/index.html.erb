@@ -1,0 +1,23 @@
+<!-- app/views/homes/index.html.erb -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>TOPページ</title>
+    <link rel="stylesheet" href="<%= asset_path 'styles.css' %>">
+</head>
+<body>
+    <header>
+        <h1>CM Watch</h1>
+    </header>
+    <main>
+        <section>
+            <button onclick="location.href='<%= staff_login_path %>'">一般ユーザー ログイン</button>
+            <button onclick="location.href='<%= admin_login_path %>'">管理者 ログイン</button>
+        </section>
+    </main>
+    <footer>
+        <p>山田ファシリティーサービス株式会社 | XX-XXXX-XXXX</p>
+    </footer>
+</body>
+</html>

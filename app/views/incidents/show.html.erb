@@ -1,0 +1,21 @@
+<!-- app/views/incidents/show.html.erb -->
+<h1>事故事例詳細</h1>
+<p><strong>タイトル:</strong> <%= @incident.title %></p>
+<p><strong>説明:</strong> <%= @incident.description %></p>
+
+<h2>コメント</h2>
+<%= form_with model: [current_staff, @incident, @comment], url: staff_incident_comments_path(current_staff, @incident) do |form| %>
+  <div>
+    <%= form.label :content, 'コメント' %>
+    <%= form.text_area :content, required: true %>
+  </div>
+  <div>
+    <%= form.submit 'コメントを投稿' %>
+  </div>
+<% end %>
+
+<ul>
+  <% @comments.each do |comment| %>
+    <li><%= comment.content %> - <%= comment.staff.name %></li>
+  <% end %>
+</ul>

@@ -1,8 +1,10 @@
 <!-- app/views/staffs/show.html.erb -->
-<h1>一般社員ダッシュボード</h1>
+<h1>スタッフダッシュボード</h1>
 <p>ようこそ、<%= current_staff.name %> さん！</p>
 <nav>
   <ul>
-    <li><%= link_to 'パスワードを変更する', edit_staff_path(current_staff) %></li>
+    <li><%= link_to '事故事例一覧', staff_incidents_path(current_staff) %></li>
+    <li><%= link_to '新しい事故事例を投稿', new_staff_incident_path(current_staff) %></li>
+    <li><%= link_to 'プロフィール編集', edit_staff_path(current_staff) %></li>
   </ul>
 </nav>
