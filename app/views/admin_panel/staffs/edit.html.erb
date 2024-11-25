@@ -1,0 +1,15 @@
+<!-- app/views/admin_panel/staffs/edit.html.erb -->
+<h1>社員情報を編集</h1>
+<%= form_with model: @staff, url: admin_panel_staff_path(@staff), method: :patch do |form| %>
+  <div>
+    <%= form.label :employee_number, '社員番号' %>
+    <%= form.text_field :employee_number, required: true %>
+  </div>
+  <div>
+    <%= form.label :name, '名前' %>
+    <%= form.text_field :name, required: true %>
+  </div>
+  <div>
+    <%= form.submit '更新' %>
+  </div>
+<% end %>

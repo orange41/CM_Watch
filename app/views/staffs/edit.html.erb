@@ -1,0 +1,15 @@
+<!-- app/views/staffs/edit.html.erb -->
+<h1>パスワードを変更する</h1>
+<%= form_with model: @staff, url: staff_path(@staff), method: :patch do |form| %>
+  <div>
+    <%= form.label :password, '新しいパスワード' %>
+    <%= form.password_field :password, required: true %>
+  </div>
+  <div>
+    <%= form.label :password_confirmation, '新しいパスワード（確認用）' %>
+    <%= form.password_field :password_confirmation, required: true %>
+  </div>
+  <div>
+    <%= form.submit '更新' %>
+  </div>
+<% end %>

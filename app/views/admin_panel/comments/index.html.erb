@@ -1,0 +1,17 @@
+<!-- app/views/admin_panel/comments/index.html.erb -->
+<h1>コメント管理</h1>
+<table>
+  <tr>
+    <th>コメント</th>
+    <th>アクション</th>
+  </tr>
+  <% @comments.each do |comment| %>
+    <tr>
+      <td><%= comment.content %></td>
+      <td>
+        <%= link_to '編集', edit_admin_panel_comment_path(comment) %> |
+        <%= link_to '削除', admin_panel_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>

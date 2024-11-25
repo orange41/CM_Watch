@@ -1,0 +1,2 @@
+module AdminPanel::StaffsHelper
+end
