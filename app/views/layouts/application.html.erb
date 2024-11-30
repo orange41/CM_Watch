@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>CMWatch</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>CMWatch</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+  <nav>
+    <ul>
+      <% if admin_signed_in? %>
+        <li><%= link_to 'Admin Dashboard', admin_dashboard_path %></li>
+        <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
+      <% elsif staff_signed_in? %>
+        <li><%= link_to 'Staff Dashboard', staff_path(current_staff) %></li>
+        <li><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete %></li>
+      <% else %>
+        <li><%= link_to 'Admin Sign In', new_admin_session_path %></li>
+        <li><%= link_to 'Staff Sign In', new_staff_session_path %></li>
+      <% end %>
+    </ul>
+  </nav>
+  <%= yield %>
+</body>
 </html>

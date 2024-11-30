@@ -22,6 +22,4 @@ Rails.application.routes.draw do
   resources :staffs, only: [:show, :edit, :update] do
     resources :incidents, only: [:index, :show, :new, :create, :edit, :update, :destroy], module: :staffs
   end
-
-  get 'staff_dashboard', to: 'staffs#show', as: 'staff_dashboard'
 end
