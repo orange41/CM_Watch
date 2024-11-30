@@ -255,7 +255,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
-  devise
+  devise (~> 4.9.0)
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)

@@ -11,7 +11,7 @@
         <h1>スタッフログイン</h1>
     </header>
     <main>
-        <%= form_with url: new_staff_session_path, method: :post do %>
+        <%= form_with url: new_custom_staff_session_path, method: :post do %>
             <div>
                 <%= label_tag :employee_number, '社員番号' %>
                 <%= text_field_tag :employee_number, nil, required: true %>

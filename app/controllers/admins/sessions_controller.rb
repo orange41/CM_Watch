@@ -1,14 +1,16 @@
 # app/controllers/admins/sessions_controller.rb
-module Admins
-  class SessionsController < Devise::SessionsController
-    protected
+class Admins::SessionsController < Devise::SessionsController
+  def create
+    self.resource = warden.authenticate!(auth_options)
+    set_flash_message!(:notice, :signed_in)
+    sign_in(resource_name, resource)
+    yield resource if block_given?
+    redirect_to after_sign_in_path_for(resource)
+  end
 
-    def after_sign_in_path_for(resource)
-      admin_dashboard_path
-    end
+  protected
 
-    def after_sign_out_path_for(resource_or_scope)
-      new_admin_session_path
-    end
+  def auth_options
+    { scope: resource_name, recall: "#{controller_path}#new" }
   end
 end

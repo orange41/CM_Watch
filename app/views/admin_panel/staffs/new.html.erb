@@ -1,15 +1,20 @@
 <!-- app/views/admin_panel/staffs/new.html.erb -->
-<h1>新しい社員を登録</h1>
-<%= form_with model: @staff, url: admin_panel_staffs_path do |form| %>
+<h1>新しいスタッフを登録する</h1>
+
+<%= form_with(model: @staff, url: admin_panel_staffs_path) do |f| %>
   <div>
-    <%= form.label :employee_number, '社員番号' %>
-    <%= form.text_field :employee_number, required: true %>
+    <%= f.label :employee_number, '社員番号' %>
+    <%= f.text_field :employee_number %>
   </div>
+
   <div>
-    <%= form.label :name, '名前' %>
-    <%= form.text_field :name, required: true %>
+    <%= f.label :name, '名前' %>
+    <%= f.text_field :name %>
   </div>
+
   <div>
-    <%= form.submit '登録' %>
+    <%= f.submit '登録' %>
   </div>
 <% end %>
+
+<%= link_to 'スタッフ一覧に戻る', admin_panel_staffs_path %>

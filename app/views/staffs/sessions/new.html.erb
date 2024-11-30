@@ -1,0 +1,25 @@
+<!-- app/views/devise/registrations/new.html.erb -->
+<h2>サインアップ</h2>
+
+<%= form_for(resource, as: resource_name, url: staff_session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%= f.label :employee_number, '社員番号' %><br />
+    <%= f.text_field :employee_number, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, 'パスワード' %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, 'パスワード確認' %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'サインアップ' %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>

@@ -1,20 +1,25 @@
 <!-- app/views/admin_panel/staffs/index.html.erb -->
-<h1>一般社員ユーザー管理</h1>
-<%= link_to '新しい社員を登録', new_admin_panel_staff_path %>
+<h1>スタッフ一覧</h1>
+
 <table>
-  <tr>
-    <th>社員番号</th>
-    <th>名前</th>
-    <th>アクション</th>
-  </tr>
-  <% @staffs.each do |staff| %>
+  <thead>
     <tr>
-      <td><%= staff.employee_number %></td>
-      <td><%= staff.name %></td>
-      <td>
-        <%= link_to '編集', edit_admin_panel_staff_path(staff) %> |
-        <%= link_to '削除', admin_panel_staff_path(staff), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-      </td>
+      <th>社員番号</th>
+      <th>名前</th>
+      <th>操作</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @staffs.each do |staff| %>
+      <tr>
+        <td><%= staff.employee_number %></td>
+        <td><%= staff.name %></td>
+        <td>
+          <%= link_to '削除', admin_panel_staff_path(staff), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
+
+<%= link_to '新しいスタッフを登録', new_admin_panel_staff_path %>
