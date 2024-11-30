@@ -1,27 +1,22 @@
-<!-- app/views/admins/sessions/new.html.erb -->
 <h2>管理者ログイン</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_with scope: :admin, url: admin_session_path, local: true do |form| %>
   <div class="field">
-    <%= f.label :employee_number, '社員番号' %><br />
-    <%= f.text_field :employee_number, autofocus: true %>
+    <%= form.label :email %><br />
+    <%= form.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :password, 'パスワード' %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= form.label :password %><br />
+    <%= form.password_field :password, autocomplete: "current-password" %>
   </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
 
   <div class="actions">
-    <%= f.submit 'ログイン' %>
+    <%= form.submit "ログイン" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div class="links">
+  <%= link_to 'スタッフログインはこちら', new_staff_session_path %>
+  <%= link_to '初回ログインはこちら', new_admin_registration_path %>
+</div>

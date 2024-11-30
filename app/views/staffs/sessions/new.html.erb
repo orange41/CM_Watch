@@ -1,25 +1,22 @@
-<!-- app/views/devise/registrations/new.html.erb -->
-<h2>サインアップ</h2>
+<h2>スタッフログイン</h2>
 
-<%= form_for(resource, as: resource_name, url: staff_session_path(resource_name)) do |f| %>
+<%= form_with scope: :staff, url: staff_session_path, local: true do |form| %>
   <div class="field">
-    <%= f.label :employee_number, '社員番号' %><br />
-    <%= f.text_field :employee_number, autofocus: true %>
+    <%= form.label :employee_number, '社員番号' %><br />
+    <%= form.text_field :employee_number, autofocus: true %>
   </div>
 
   <div class="field">
-    <%= f.label :password, 'パスワード' %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, 'パスワード確認' %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= form.label :password, 'パスワード' %><br />
+    <%= form.password_field :password, autocomplete: "current-password" %>
   </div>
 
   <div class="actions">
-    <%= f.submit 'サインアップ' %>
+    <%= form.submit "ログイン" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div class="links">
+  <%= link_to '管理者ログインはこちら', new_admin_session_path %>
+  <%= link_to '初回ログインはこちら', new_staff_registration_path %>
+</div>

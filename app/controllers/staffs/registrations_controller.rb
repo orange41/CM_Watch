@@ -1,10 +1,11 @@
 # app/controllers/staffs/registrations_controller.rb
 class Staffs::RegistrationsController < Devise::RegistrationsController
-  before_action :disable_signup!, only: %i[new create]
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  private
+  protected
 
-  def disable_signup!
-    render file: Rails.root.join('public/404.html'), layout: false, status: :not_found
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:employee_number, :email, :password, :password_confirmation])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:employee_number, :email, :password, :password_confirmation, :current_password])
   end
 end

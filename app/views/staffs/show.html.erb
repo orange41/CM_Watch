@@ -1,10 +1,15 @@
 <!-- app/views/staffs/show.html.erb -->
 <h1>スタッフダッシュボード</h1>
-<p>ようこそ、<%= current_staff.name %> さん！</p>
-<nav>
-  <ul>
-    <li><%= link_to '事故事例一覧', staff_incidents_path(current_staff) %></li>
-    <li><%= link_to '新しい事故事例を投稿', new_staff_incident_path(current_staff) %></li>
-    <li><%= link_to 'プロフィール編集', edit_staff_path(current_staff) %></li>
-  </ul>
-</nav>
+<% if current_staff %>
+  <p>ようこそ、<%= current_staff.name %> さん！</p>
+  <nav>
+    <ul>
+      <li><%= link_to '事故事例一覧', staff_incidents_path(current_staff) %></li>
+      <li><%= link_to '新しい事故事例を投稿', new_staff_incident_path(current_staff) %></li>
+      <li><%= link_to 'プロフィール編集', edit_staff_path(current_staff) %></li>
+      <li><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete %></li>
+    </ul>
+  </nav>
+<% else %>
+  <p>スタッフ情報が見つかりません。ログインし直してください。</p>
+<% end %>

@@ -1,8 +1,8 @@
-<h1>プロフィールを編集する</h1>
-<%= form_with model: @staff, url: staff_path(@staff), method: :patch do |form| %>
+<h1>管理者プロフィールを編集する</h1>
+<%= form_with model: @admin, url: admin_panel_admin_dashboard_update_path, method: :patch do |form| %>
   <div>
-    <%= form.label :name, '名前' %>
-    <%= form.text_field :name, required: true %>
+    <%= form.label :employee_number, '社員番号' %>
+    <%= form.text_field :employee_number, required: true %>
   </div>
   <div>
     <%= form.label :password, '新しいパスワード' %>

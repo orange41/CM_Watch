@@ -1,12 +1,11 @@
-<!-- app/views/admin_panel/staffs/index.html.erb -->
-<h1>スタッフ一覧</h1>
+<h2>Staff List</h2>
 
 <table>
   <thead>
     <tr>
-      <th>社員番号</th>
-      <th>名前</th>
-      <th>操作</th>
+      <th>Employee Number</th>
+      <th>Name</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -15,11 +14,11 @@
         <td><%= staff.employee_number %></td>
         <td><%= staff.name %></td>
         <td>
-          <%= link_to '削除', admin_panel_staff_path(staff), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+          <%= link_to 'Delete', admin_panel_staff_path(staff), method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to '新しいスタッフを登録', new_admin_panel_staff_path %>
+<%= link_to 'New Staff', new_admin_panel_staff_path %>

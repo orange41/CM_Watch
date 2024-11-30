@@ -1,14 +1,17 @@
-# app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(Admin)
-      admin_dashboard_path # 管理者用ダッシュボード
+      admin_panel_admin_dashboard_path
     elsif resource.is_a?(Staff)
-      staff_dashboard_path # スタッフ用ダッシュボード
+      staff_path(resource)
     else
       super
     end
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    root_path
   end
 end
