@@ -5,29 +5,18 @@ module AdminPanel
 
     def show
       @admin = current_admin
-      # デバッグ用のコードはコメントアウトまたは削除
-      # logger.debug "current_admin: #{@admin.inspect}"
-      if @admin.nil?
-        redirect_to new_admin_session_path, alert: '管理者情報が見つかりません。もう一度ログインしてください。'
-      end
     end
 
     def edit
       @admin = current_admin
-      # デバッグ用のコードはコメントアウトまたは削除
-      # logger.debug "Editing admin: #{@admin.inspect}"
     end
 
     def update
       @admin = current_admin
       if @admin.update(admin_params)
-        bypass_sign_in(@admin) # パスワード更新後にセッションを再設定
-        # デバッグ用のコードはコメントアウトまたは削除
-        # logger.debug "Updated admin: #{@admin.inspect}"
-        redirect_to admin_dashboard_path(@admin), notice: 'プロフィールが更新されました。'
+        redirect_to admin_panel_admin_dashboard_path, notice: 'プロフィールが更新されました。'
       else
-        # デバッグ用のコードはコメントアウトまたは削除
-        # logger.debug "Update failed: #{@admin.errors.full_messages.join(", ")}"
+        flash.now[:alert] = @admin.errors.full_messages.join(', ') # バリデーションエラーをフラッシュメッセージで表示
         render :edit
       end
     end
@@ -35,11 +24,11 @@ module AdminPanel
     private
 
     def set_admin
-      @admin = Admin.find(params[:id])
+      @admin = current_admin
     end
 
     def admin_params
-      params.require(:admin).permit(:employee_number, :password, :password_confirmation).tap do |admin_params|
+      params.require(:admin).permit(:employee_number, :name, :password, :password_confirmation).tap do |admin_params|
         if admin_params[:password].blank?
           admin_params.delete(:password)
           admin_params.delete(:password_confirmation)

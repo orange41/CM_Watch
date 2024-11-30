@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(Admin)
-      admin_panel_admin_dashboard_path
+      admin_panel_admin_dashboard_path # 適切なパスに修正
     elsif resource.is_a?(Staff)
       staff_path(resource)
     else

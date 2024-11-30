@@ -1,10 +1,16 @@
 <h1>管理者ダッシュボード</h1>
-<p>ようこそ、<%= current_admin.employee_number %> さん！</p>
-<nav>
-  <ul>
-    <li><%= link_to '一般社員ユーザー管理', admin_panel_staffs_path %></li>
-    <li><%= link_to '事故事例管理', admin_panel_incidents_path %></li>
-    <li><%= link_to 'コメント管理', admin_panel_comments_path %></li>
-    <li><%= link_to 'プロフィール編集', admin_panel_edit_admin_dashboard_path %></li>
-  </ul>
-</nav>
+
+<% if current_admin %>
+  <p>ようこそ、<%= current_admin.name %> さん！</p>
+  <nav>
+    <ul>
+      <li><%= link_to 'スタッフ一覧', admin_panel_staffs_path %></li>
+      <li><%= link_to '新しいスタッフを登録', new_admin_panel_staff_path %></li>
+      <li><%= link_to '事故事例管理', admin_panel_incidents_path %></li>
+      <li><%= link_to 'プロフィール編集', admin_panel_edit_admin_dashboard_path %></li> <!-- プロフィール編集リンクを修正 -->
+      <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
+    </ul>
+  </nav>
+<% else %>
+  <p>管理者情報が見つかりません。ログインし直してください。</p>
+<% end %>

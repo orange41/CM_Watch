@@ -2,12 +2,12 @@
 
 <%= form_with scope: :admin, url: admin_session_path, local: true do |form| %>
   <div class="field">
-    <%= form.label :email %><br />
-    <%= form.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= form.label :employee_number, '社員番号' %><br />
+    <%= form.text_field :employee_number, autofocus: true %>
   </div>
 
   <div class="field">
-    <%= form.label :password %><br />
+    <%= form.label :password, 'パスワード' %><br />
     <%= form.password_field :password, autocomplete: "current-password" %>
   </div>
 

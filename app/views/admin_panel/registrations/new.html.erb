@@ -1,23 +1,18 @@
-<h1>プロフィール編集</h1>
+<h2>管理者登録</h2>
 
-<% if flash[:alert] %>
-  <p><%= flash[:alert] %></p>
-<% end %>
-
-<%= form_with model: @admin, url: admin_panel_admin_dashboard_update_path, local: true, method: :patch do |form| %>
+<%= form_with model: @admin, url: admin_registration_path, local: true do |form| %>
   <div class="field">
     <%= form.label :employee_number, '社員番号' %><br />
-    <%= form.text_field :employee_number, readonly: true %>
+    <%= form.text_field :employee_number, autofocus: true %>
   </div>
 
   <div class="field">
-    <%= form.label :name, '名前' %><br />
-    <%= form.text_field :name %>
+    <%= form.label :email %><br />
+    <%= form.email_field :email, autocomplete: "email" %>
   </div>
 
-
   <div class="field">
-    <%= form.label :password, 'パスワード（変更する場合のみ）' %><br />
+    <%= form.label :password, 'パスワード' %><br />
     <%= form.password_field :password, autocomplete: "new-password" %>
   </div>
 
@@ -27,6 +22,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit "更新" %>
+    <%= form.submit "サインアップ" %>
   </div>
 <% end %>
