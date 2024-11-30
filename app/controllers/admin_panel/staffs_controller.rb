@@ -1,4 +1,3 @@
-# app/controllers/admin_panel/staffs_controller.rb
 class AdminPanel::StaffsController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_staff, only: [:destroy]
@@ -34,6 +33,6 @@ class AdminPanel::StaffsController < ApplicationController
   end
 
   def staff_params
-    params.require(:staff).permit(:employee_number, :name)
+    params.require(:staff).permit(:employee_number, :name, :password, :password_confirmation)
   end
 end
