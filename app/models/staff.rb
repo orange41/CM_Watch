@@ -1,4 +1,5 @@
 class Staff < ApplicationRecord
+  has_many :incidents
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:employee_number]
 

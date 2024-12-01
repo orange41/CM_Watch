@@ -1,13 +1,10 @@
 module Staffs
   class IncidentsController < ApplicationController
     before_action :authenticate_staff!
+    before_action :set_incident, only: [:show, :edit, :update, :destroy]
 
     def index
       @incidents = current_staff.incidents
-    end
-
-    def show
-      @incident = current_staff.incidents.find(params[:id])
     end
 
     def new
@@ -17,32 +14,34 @@ module Staffs
     def create
       @incident = current_staff.incidents.build(incident_params)
       if @incident.save
-        redirect_to staff_staff_incidents_path(current_staff), notice: '事故事例が作成されました。'
+        redirect_to staffs_incidents_path, notice: '事故事例が作成されました。'
       else
         render :new
       end
     end
 
     def edit
-      @incident = current_staff.incidents.find(params[:id])
+      # 編集用アクション
     end
 
     def update
-      @incident = current_staff.incidents.find(params[:id])
       if @incident.update(incident_params)
-        redirect_to staff_staff_incident_path(current_staff, @incident), notice: '事故事例が更新されました。'
+        redirect_to staffs_incidents_path, notice: '事故事例が更新されました。'
       else
         render :edit
       end
     end
 
     def destroy
-      @incident = current_staff.incidents.find(params[:id])
       @incident.destroy
-      redirect_to staff_staff_incidents_path(current_staff), notice: '事故事例が削除されました。'
+      redirect_to staffs_incidents_path, notice: '事故事例が削除されました。'
     end
 
     private
+
+    def set_incident
+      @incident = current_staff.incidents.find(params[:id])
+    end
 
     def incident_params
       params.require(:incident).permit(:title, :description, :occurred_at)

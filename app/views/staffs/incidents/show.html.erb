@@ -1,0 +1,21 @@
+<!-- app/views/staffs/incidents/show.html.erb -->
+<h1>事故事例の詳細</h1>
+
+<p>
+  <strong>タイトル:</strong>
+  <%= @incident.title %>
+</p>
+
+<p>
+  <strong>説明:</strong>
+  <%= @incident.description %>
+</p>
+
+<p>
+  <strong>発生日時:</strong>
+  <%= @incident.occurred_at %>
+</p>
+
+<%= link_to '編集', edit_staffs_incident_path(@incident) %> |
+<%= link_to '削除', staffs_incident_path(@incident), method: :delete, data: { confirm: '本当に削除しますか？' } %> |
+<%= link_to '一覧に戻る', staffs_incidents_path %>

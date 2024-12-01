@@ -1,0 +1,21 @@
+<!-- app/views/staffs/incidents/index.html.erb -->
+<h1>事故事例管理</h1>
+<%= link_to '新しい事故事例を投稿', new_staffs_incident_path %>
+<table>
+  <tr>
+    <th>タイトル</th>
+    <th>説明</th>
+    <th>アクション</th>
+  </tr>
+  <% @incidents.each do |incident| %>
+    <tr>
+      <td><%= incident.title %></td>
+      <td><%= incident.description %></td>
+      <td>
+        <%= link_to '詳細', staffs_incident_path(incident) %> |
+        <%= link_to '編集', edit_staffs_incident_path(incident) %> |
+        <%= link_to '削除', staffs_incident_path(incident), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>

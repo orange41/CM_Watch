@@ -4,6 +4,14 @@ class Admin < ApplicationRecord
 
   validates :employee_number, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
-  validates :password, length: { minimum: 6 }, allow_blank: true # パスワードが空の場合はバリデーションをスキップ
-  validates :name, presence: true # 名前は必須
+  validates :password, length: { minimum: 6 }, allow_blank: true
+  validate :name_presence, on: :update
+
+  private
+
+  def name_presence
+    if name.blank?
+      errors.add(:name, "can't be blank")
+    end
+  end
 end

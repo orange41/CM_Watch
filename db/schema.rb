@@ -47,8 +47,11 @@ ActiveRecord::Schema.define(version: 2024_11_30_163415) do
   create_table "incidents", force: :cascade do |t|
     t.string "title"
     t.text "description"
+    t.datetime "occurred_at"
+    t.integer "staff_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["staff_id"], name: "index_incidents_on_staff_id"
   end
 
   create_table "staffs", force: :cascade do |t|

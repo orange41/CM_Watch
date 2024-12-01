@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :staffs do
+     resources :incidents
+     end
+     
   devise_for :staffs, controllers: {
     sessions: 'staffs/sessions',
     registrations: 'staffs/registrations'
