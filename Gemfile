@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.1.2'
 
+gem 'listen', '~> 3.3'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.10'
 gem 'sqlite3', '~> 1.4'
 gem 'puma', '~> 3.11'
@@ -15,7 +16,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'listen', '~> 3.3'
+
 end
 
 group :development do
