@@ -1,11 +1,10 @@
 class CreateComments < ActiveRecord::Migration[6.1]
   def change
-    create_table :comments do |t|
-      t.text :content
-      t.references :staff, null: false, foreign_key: true
-      t.references :post, null: false, foreign_key: true
+    # create_table :comments do |t|
+    #   t.references :staff, foreign_key: true
+    #   # 他のカラムを追加
 
-      t.timestamps
-    end
+    #   t.timestamps
+    # end
   end
 end

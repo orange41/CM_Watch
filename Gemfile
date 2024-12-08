@@ -55,12 +55,21 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+
 gem 'mini_magick'
 gem 'devise', '~> 4.9.0'
 gem 'dotenv-rails'
+
+group :development, :test do
+  gem 'sqlite3', '~> 1.4' 
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'listen', '~> 3.3'
+end
+
 group :production do
   gem 'mysql2'
 end
-gem "net-smtp"
-gem "net-pop"
-gem "net-imap"
+
+gem 'net-smtp'
+gem 'net-pop'
+gem 'net-imap'
