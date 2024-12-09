@@ -1,10 +1,11 @@
 class Admins::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  private
 
-  protected
+  def sign_up_params
+    params.require(:admin).permit(:email, :password, :password_confirmation, :employee_number)
+  end
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:employee_number, :email, :password, :password_confirmation])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:employee_number, :email, :password, :password_confirmation, :current_password, :name])
+  def account_update_params
+    params.require(:admin).permit(:email, :password, :password_confirmation, :current_password, :employee_number)
   end
 end
