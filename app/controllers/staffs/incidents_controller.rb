@@ -20,6 +20,10 @@ module Staffs
       end
     end
 
+    def show
+      @comment = @incident.comments.build
+    end
+
     def edit
       # 編集用アクション
     end

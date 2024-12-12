@@ -27,4 +27,8 @@ Rails.application.routes.draw do
   resources :staffs, only: [:show, :edit, :update] do
     resources :incidents, only: [:index, :show, :new, :create, :edit, :update, :destroy], module: :staffs
   end
+
+  resources :incidents do
+    resources :comments, only: [:create]
+  end
 end

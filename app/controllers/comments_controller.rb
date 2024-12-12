@@ -1,4 +1,3 @@
-# app/controllers/comments_controller.rb
 class CommentsController < ApplicationController
   before_action :authenticate_staff!
 

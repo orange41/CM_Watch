@@ -16,6 +16,30 @@
   <%= @incident.occurred_at %>
 </p>
 
+<h2>コメント</h2>
+<%= form_with(model: [ @incident, @incident.comments.build ], local: true) do |form| %>
+  <div>
+    <%= form.label :content, 'コメント' %>
+    <%= form.text_area :content, required: true %>
+  </div>
+  <div>
+    <%= form.submit 'コメントを投稿' %>
+  </div>
+<% end %>
+
+<ul>
+  <% @incident.comments.each do |comment| %>
+    <li>
+      <%= comment.content %>
+      <% if comment.staff %>
+        - <%= comment.staff.name %>
+      <% else %>
+        - スタッフ情報がありません
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
 <%= link_to '編集', edit_staffs_incident_path(@incident) %> |
 <%= link_to '削除', staffs_incident_path(@incident), method: :delete, data: { confirm: '本当に削除しますか？' } %> |
 <%= link_to '一覧に戻る', staffs_incidents_path %>

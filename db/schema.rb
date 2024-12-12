@@ -35,12 +35,12 @@ ActiveRecord::Schema.define(version: 2024_11_30_163415) do
   end
 
   create_table "comments", force: :cascade do |t|
+    t.integer "incident_id"
+    t.integer "staff_id"
     t.text "content"
-    t.integer "staff_id", null: false
-    t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["incident_id"], name: "index_comments_on_incident_id"
     t.index ["staff_id"], name: "index_comments_on_staff_id"
   end
 
@@ -68,6 +68,6 @@ ActiveRecord::Schema.define(version: 2024_11_30_163415) do
     t.index ["reset_password_token"], name: "index_staffs_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "incidents"
   add_foreign_key "comments", "staffs"
 end
