@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :staffs do
-     resources :incidents
+    resources :incidents
   end
 
   devise_for :staffs, controllers: {
@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   }
 
   root 'homes#index'
+
+  namespace :admin do
+    resources :categories
+  end
 
   namespace :admin_panel do
     get 'dashboard', to: 'dashboards#show', as: 'admin_dashboard'
