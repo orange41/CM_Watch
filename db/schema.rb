@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2024_11_30_163415) do
     t.integer "staff_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "category_id"
     t.index ["staff_id"], name: "index_incidents_on_staff_id"
   end
 
@@ -70,4 +71,5 @@ ActiveRecord::Schema.define(version: 2024_11_30_163415) do
 
   add_foreign_key "comments", "incidents"
   add_foreign_key "comments", "staffs"
+  add_foreign_key "incidents", "categories"
 end

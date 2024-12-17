@@ -48,7 +48,7 @@ module Staffs
     end
 
     def incident_params
-      params.require(:incident).permit(:title, :description, :occurred_at)
+      params.require(:incident).permit(:title, :description, :occurred_at, :category_id)
     end
   end
 end

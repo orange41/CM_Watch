@@ -1,7 +1,7 @@
 class Incident < ApplicationRecord
   belongs_to :staff
   has_many :comments, dependent: :destroy
-
+  belongs_to :category
   validates :title, presence: true
   validates :description, presence: true
   validates :occurred_at, presence: true

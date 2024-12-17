@@ -15,9 +15,7 @@ Rails.application.routes.draw do
 
   root 'homes#index'
 
-  namespace :admin do
-    resources :categories
-  end
+  resources :categories
 
   namespace :admin_panel do
     get 'dashboard', to: 'dashboards#show', as: 'admin_dashboard'
