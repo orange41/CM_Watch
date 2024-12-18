@@ -5,6 +5,20 @@ module Staffs
 
     def index
       @incidents = current_staff.incidents
+      @incidents = @incidents.joins(:category).where('incidents.title LIKE ? OR incidents.description LIKE ? OR categories.title LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
+
+      if params[:sort].present?
+        case params[:sort]
+        when 'title'
+          @incidents = @incidents.order(title: params[:direction])
+        when 'description'
+          @incidents = @incidents.order(description: params[:direction])
+        when 'category'
+          @incidents = @incidents.joins(:category).order("categories.title #{params[:direction]}")
+        when 'staff'
+          @incidents = @incidents.joins(:staff).order("staffs.name #{params[:direction]}")
+        end
+      end
     end
 
     def new
@@ -13,6 +27,7 @@ module Staffs
 
     def create
       @incident = current_staff.incidents.build(incident_params)
+      @incident.staff = current_staff # 投稿者を設定
       if @incident.save
         redirect_to staffs_incidents_path, notice: '事故事例が作成されました。'
       else
