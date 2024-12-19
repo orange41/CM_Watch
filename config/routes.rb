@@ -13,16 +13,16 @@ Rails.application.routes.draw do
 
   resources :categories
 
+  get 'staffs/dashboard', to: 'homes#user_dashboard', as: 'staffs_dashboard' # 修正
   namespace :staffs do
-    get 'dashboard', to: 'dashboards#show', as: 'dashboard'
     resources :incidents
   end
 
   namespace :admin_panel do
-    get 'dashboard', to: 'dashboards#show', as: 'admin_dashboard'
+    get 'dashboard', to: 'homes#admin_dashboard', as: 'admin_dashboard'
     get 'dashboard/edit', to: 'dashboards#edit', as: 'edit_admin_dashboard'
     patch 'dashboard', to: 'dashboards#update', as: 'admin_dashboard_update'
-    resources :staffs, only: [:index, :show, :new, :create, :destroy] # スタッフの詳細ページと一覧ページを追加
+    resources :staffs, only: [:index, :show, :new, :create, :destroy]
     resources :incidents do
       member do
         patch :approve

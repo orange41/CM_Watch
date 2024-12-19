@@ -7,7 +7,8 @@ class HomesController < ApplicationController
   end
 
   def user_dashboard
-    # ユーザーダッシュボードの表示
+    @staff = current_staff
+    render 'staffs/show'
   end
 
   def admin_dashboard
