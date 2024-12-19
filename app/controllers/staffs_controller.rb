@@ -1,8 +1,13 @@
 class StaffsController < ApplicationController
-  before_action :authenticate_staff!
+  before_action :authenticate_staff!, only: [:edit, :update]
+  before_action :authenticate_admin!, only: [:index, :show] # 管理者がアクセスできるようにする
+
+  def index
+    @staffs = Staff.all
+  end
 
   def show
-    @staff = current_staff
+    @staff = Staff.find(params[:id])
   end
 
   def edit

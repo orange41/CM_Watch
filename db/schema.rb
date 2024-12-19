@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_30_163415) do
+ActiveRecord::Schema.define(version: 2024_12_19_023846) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2024_11_30_163415) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "approved"
     t.index ["incident_id"], name: "index_comments_on_incident_id"
     t.index ["staff_id"], name: "index_comments_on_staff_id"
   end
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 2024_11_30_163415) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "category_id"
+    t.boolean "approved"
     t.index ["staff_id"], name: "index_incidents_on_staff_id"
   end
 

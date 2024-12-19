@@ -4,7 +4,7 @@ module Staffs
     before_action :set_incident, only: [:show, :edit, :update, :destroy]
 
     def index
-      @incidents = current_staff.incidents
+      @incidents = current_staff.incidents.where(approved: true)
       @incidents = @incidents.joins(:category).where('incidents.title LIKE ? OR incidents.description LIKE ? OR categories.title LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
 
       if params[:sort].present?
@@ -27,20 +27,20 @@ module Staffs
 
     def create
       @incident = current_staff.incidents.build(incident_params)
-      @incident.staff = current_staff # 投稿者を設定
+      @incident.approved = false # 承認フラグの初期値を設定
       if @incident.save
-        redirect_to staffs_incidents_path, notice: '事故事例が作成されました。'
+        redirect_to staffs_incidents_path, notice: '事故事例が作成され、管理者の承認を待っています。'
       else
+        Rails.logger.error @incident.errors.full_messages.join(", ") # エラーメッセージをログに出力
         render :new
       end
-    end
+    end    
 
     def show
       @comment = @incident.comments.build
     end
 
     def edit
-      # 編集用アクション
     end
 
     def update

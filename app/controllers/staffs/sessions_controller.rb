@@ -9,6 +9,10 @@ class Staffs::SessionsController < Devise::SessionsController
 
   protected
 
+  def after_sign_in_path_for(resource)
+    staffs_dashboard_path # ダッシュボードにリダイレクト
+  end
+
   def auth_options
     { scope: resource_name, recall: "#{controller_path}#new" }
   end

@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  namespace :staffs do
-    resources :incidents
-  end
-
   devise_for :staffs, controllers: {
     sessions: 'staffs/sessions',
     registrations: 'staffs/registrations'
@@ -17,20 +13,34 @@ Rails.application.routes.draw do
 
   resources :categories
 
+  namespace :staffs do
+    get 'dashboard', to: 'dashboards#show', as: 'dashboard'
+    resources :incidents
+  end
+
   namespace :admin_panel do
     get 'dashboard', to: 'dashboards#show', as: 'admin_dashboard'
     get 'dashboard/edit', to: 'dashboards#edit', as: 'edit_admin_dashboard'
     patch 'dashboard', to: 'dashboards#update', as: 'admin_dashboard_update'
-    resources :staffs, only: [:index, :new, :create, :destroy]
-    resources :incidents, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    resources :staffs, only: [:index, :show, :new, :create, :destroy] # スタッフの詳細ページと一覧ページを追加
+    resources :incidents do
+      member do
+        patch :approve
+        patch :reject
+      end
+      resources :comments do
+        member do
+          patch :approve
+          patch :reject
+        end
+      end
+    end
     resources :comments, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   end
 
-  resources :staffs, only: [:show, :edit, :update] do
-    resources :incidents, only: [:index, :show, :new, :create, :edit, :update, :destroy], module: :staffs
-  end
-
-  resources :incidents do
+  resources :incidents, only: [] do
     resources :comments, only: [:create]
   end
+
+  resources :staffs, only: [:index, :show] # 一般公開されるスタッフの詳細ページと一覧ページも追加
 end
