@@ -1,21 +1,27 @@
-<!-- app/views/admin_panel/incidents/index.html.erb -->
-<h1>事故事例管理</h1>
-<%= link_to '新しい事故事例を投稿', new_admin_panel_incident_path %>
+<h1>事故事例一覧</h1>
 <table>
-  <tr>
-    <th>タイトル</th>
-    <th>説明</th>
-    <th>アクション</th>
-  </tr>
-  <% @incidents.each do |incident| %>
+  <thead>
     <tr>
-      <td><%= incident.title %></td>
-      <td><%= incident.description %></td>
-      <td>
-        <%= link_to '詳細', admin_panel_incident_path(incident) %> |
-        <%= link_to '編集', edit_admin_panel_incident_path(incident) %> |
-        <%= link_to '削除', admin_panel_incident_path(incident), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-      </td>
+      <th>タイトル</th>
+      <th>説明</th>
+      <th>発生日時</th>
+      <th>カテゴリー</th>
+      <th>承認ステータス</th>
+      <th>アクション</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @incidents.each do |incident| %>
+      <tr>
+        <td><%= link_to incident.title, admin_panel_incident_path(incident) %></td>
+        <td><%= incident.description.truncate(20) %></td> <!-- ここで説明を省略表示 -->
+        <td><%= incident.occurred_at %></td>
+        <td><%= incident.category.title if incident.category %></td>
+        <td><%= incident.approved ? '承認済み' : '未承認' %></td>
+        <td>
+          <%= link_to '詳細', admin_panel_incident_path(incident) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
