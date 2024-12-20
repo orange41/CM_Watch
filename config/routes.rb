@@ -13,13 +13,15 @@ Rails.application.routes.draw do
 
   resources :categories
 
-  get 'staffs/dashboard', to: 'homes#user_dashboard', as: 'staffs_dashboard' 
+  get 'staffs/dashboard', to: 'homes#user_dashboard', as: 'staffs_dashboard'
 
   namespace :staffs do
     resources :incidents
   end
 
-  get 'admin_panel/dashboard', to: 'homes#admin_dashboard', as: 'admin_panel_admin_dashboard' # 修正
+  resources :staffs, only: [:edit, :update] # プロフィール編集および更新ルートの追加
+
+  get 'admin_panel/dashboard', to: 'homes#admin_dashboard', as: 'admin_panel_admin_dashboard'
   namespace :admin_panel do
     get 'dashboard/edit', to: 'dashboards#edit', as: 'edit_admin_dashboard'
     patch 'dashboard', to: 'dashboards#update', as: 'admin_dashboard_update'
@@ -46,6 +48,4 @@ Rails.application.routes.draw do
   resources :incidents, only: [] do
     resources :comments, only: [:create]
   end
-
-  resources :staffs, only: [:index, :show]
 end
