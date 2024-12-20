@@ -12,6 +12,7 @@ class HomesController < ApplicationController
   end
 
   def admin_dashboard
-    # 管理者ダッシュボードの表示
+    @admin = current_admin
+    render 'admin_panel/dashboards/show'
   end
 end

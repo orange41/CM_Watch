@@ -1,17 +1,26 @@
-<!-- app/views/admin_panel/comments/index.html.erb -->
-<h1>コメント管理</h1>
+<h1>コメント一覧</h1>
 <table>
-  <tr>
-    <th>コメント</th>
-    <th>アクション</th>
-  </tr>
-  <% @comments.each do |comment| %>
+  <thead>
     <tr>
-      <td><%= comment.content %></td>
-      <td>
-        <%= link_to '編集', edit_admin_panel_comment_path(comment) %> |
-        <%= link_to '削除', admin_panel_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-      </td>
+      <th>内容</th>
+      <th>作成日時</th>
+      <th>承認ステータス</th>
+      <th>アクション</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.content %></td>
+        <td><%= comment.created_at %></td>
+        <td><%= comment.approved ? '承認済み' : '未承認' %></td>
+        <td>
+          <% unless comment.approved %>
+            <%= link_to '承認', approve_admin_panel_incident_comment_path(comment.incident, comment), method: :patch, data: { confirm: 'このコメントを承認しますか？' } %>
+            <%= link_to '却下', reject_admin_panel_incident_comment_path(comment.incident, comment), method: :patch, data: { confirm: 'このコメントを却下しますか？' } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

@@ -14,15 +14,15 @@
   <nav>
     <ul>
       <% if admin_signed_in? %>
-
-        <!-- <li><%= link_to 'Admin Dashboard', admin_panel_admin_dashboard_path %></li>
-        <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li> -->
+        <li><%= link_to 'Admin Dashboard', admin_panel_admin_dashboard_path %></li> <!-- 修正 -->
+        <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
       <% elsif staff_signed_in? %>
         <li><%= link_to 'Staff Dashboard', staff_path(current_staff) %></li>
         <li><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete %></li>
+      <% else %>
+        <li><%= link_to 'Admin Sign In', new_admin_session_path %></li>
+        <li><%= link_to 'Staff Sign In', new_staff_session_path %></li>
       <% end %>
-      <!-- <li><%= link_to 'Admin Sign In', new_admin_session_path %></li>
-      <li><%= link_to 'Staff Sign In', new_staff_session_path %></li> -->
     </ul>
   </nav>
   <%= yield %>

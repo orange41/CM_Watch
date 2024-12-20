@@ -12,4 +12,34 @@
 <% end %>
 <%= link_to '削除', admin_panel_incident_path(@incident), method: :delete, data: { confirm: 'この事故事例を削除しますか？' } %>
 
+<h2>コメント一覧</h2>
+<table>
+  <thead>
+    <tr>
+      <th>コメント</th>
+      <th>作成者</th>
+      <th>作成日時</th>
+      <th>承認ステータス</th>
+      <th>アクション</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @incident.comments.each do |comment| %>
+      <tr>
+        <td><%= comment.content %></td>
+        <td><%= comment.staff.name %></td>
+        <td><%= comment.created_at %></td>
+        <td><%= comment.approved ? '承認済み' : '未承認' %></td>
+        <td>
+          <% unless comment.approved %>
+            <%= link_to '承認', approve_admin_panel_incident_comment_path(@incident, comment), method: :patch, data: { confirm: 'このコメントを承認しますか？' } %>
+            <%= link_to '却下', reject_admin_panel_incident_comment_path(@incident, comment), method: :patch, data: { confirm: 'このコメントを却下しますか？' } %>
+          <% end %>
+          <%= link_to '削除', admin_panel_incident_comment_path(@incident, comment), method: :delete, data: { confirm: 'このコメントを削除しますか？' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <%= link_to '一覧に戻る', admin_panel_incidents_path %>

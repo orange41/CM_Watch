@@ -13,13 +13,14 @@ Rails.application.routes.draw do
 
   resources :categories
 
-  get 'staffs/dashboard', to: 'homes#user_dashboard', as: 'staffs_dashboard' # 修正
+  get 'staffs/dashboard', to: 'homes#user_dashboard', as: 'staffs_dashboard' 
+
   namespace :staffs do
     resources :incidents
   end
 
+  get 'admin_panel/dashboard', to: 'homes#admin_dashboard', as: 'admin_panel_admin_dashboard' # 修正
   namespace :admin_panel do
-    get 'dashboard', to: 'homes#admin_dashboard', as: 'admin_dashboard'
     get 'dashboard/edit', to: 'dashboards#edit', as: 'edit_admin_dashboard'
     patch 'dashboard', to: 'dashboards#update', as: 'admin_dashboard_update'
     resources :staffs, only: [:index, :show, :new, :create, :destroy]
@@ -35,12 +36,16 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :comments, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    resources :comments, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
+      collection do
+        get :all_comments
+      end
+    end
   end
 
   resources :incidents, only: [] do
     resources :comments, only: [:create]
   end
 
-  resources :staffs, only: [:index, :show] # 一般公開されるスタッフの詳細ページと一覧ページも追加
+  resources :staffs, only: [:index, :show]
 end

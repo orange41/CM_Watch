@@ -1,18 +1,23 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_staff!
+  before_action :set_incident
 
   def create
-    @incident = Incident.find(params[:incident_id])
     @comment = @incident.comments.build(comment_params)
     @comment.staff = current_staff
+    @comment.approved = false
+
     if @comment.save
-      redirect_to staff_incident_path(current_staff, @incident), notice: 'コメントが投稿されました。'
+      redirect_to staffs_incident_path(@incident), notice: 'コメントが作成されました。管理者の承認を待っています。'
     else
-      render 'incidents/show'
+      render :new
     end
   end
 
   private
+
+  def set_incident
+    @incident = Incident.find(params[:incident_id])
+  end
 
   def comment_params
     params.require(:comment).permit(:content)

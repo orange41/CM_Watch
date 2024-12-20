@@ -1,45 +1,45 @@
-<!-- app/views/staffs/incidents/show.html.erb -->
 <h1>事故事例の詳細</h1>
 
-<p>
-  <strong>タイトル:</strong>
-  <%= @incident.title %>
-</p>
+<p><strong>タイトル:</strong> <%= @incident.title %></p>
+<p><strong>説明:</strong> <%= @incident.description %></p>
+<p><strong>発生日時:</strong> <%= @incident.occurred_at %></p>
+<p><strong>カテゴリー:</strong> <%= @incident.category.title if @incident.category %></p>
+<p><strong>承認ステータス:</strong> <%= @incident.approved ? '承認済み' : '未承認' %></p>
 
-<p>
-  <strong>説明:</strong>
-  <%= @incident.description %>
-</p>
+<% unless @incident.approved %>
+  <%= link_to '承認', approve_admin_panel_incident_path(@incident), method: :patch, data: { confirm: 'この事故事例を承認しますか？' } %>
+  <%= link_to '却下', reject_admin_panel_incident_path(@incident), method: :patch, data: { confirm: 'この事故事例を却下しますか？' } %>
+<% end %>
+<%= link_to '削除', admin_panel_incident_path(@incident), method: :delete, data: { confirm: 'この事故事例を削除しますか？' } %>
 
-<p>
-  <strong>発生日時:</strong>
-  <%= @incident.occurred_at %>
-</p>
+<h2>コメント一覧</h2>
+<table>
+  <thead>
+    <tr>
+      <th>コメント</th>
+      <th>作成者</th>
+      <th>作成日時</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %> <!-- 承認済みのコメントのみを表示 -->
+      <tr>
+        <td><%= comment.content %></td>
+        <td><%= comment.staff.name %></td>
+        <td><%= comment.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<h2>コメント</h2>
-<%= form_with(model: [ @incident, @incident.comments.build ], local: true) do |form| %>
-  <div>
-    <%= form.label :content, 'コメント' %>
-    <%= form.text_area :content, required: true %>
+<%= form_with(model: [@incident, Comment.new], url: incident_comments_path(@incident)) do |form| %>
+  <div class="field">
+    <%= form.label :content, 'コメント内容' %>
+    <%= form.text_area :content %>
   </div>
-  <div>
+  <div class="actions">
     <%= form.submit 'コメントを投稿' %>
   </div>
 <% end %>
 
-<ul>
-  <% @incident.comments.each do |comment| %>
-    <li>
-      <%= comment.content %>
-      <% if comment.staff %>
-        - <%= comment.staff.name %>
-      <% else %>
-        - スタッフ情報がありません
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<%= link_to '編集', edit_staffs_incident_path(@incident) %> |
-<%= link_to '削除', staffs_incident_path(@incident), method: :delete, data: { confirm: '本当に削除しますか？' } %> |
-<%= link_to '一覧に戻る', staffs_incidents_path %>
+<%= link_to '一覧に戻る', staffs_dashboard_path %>

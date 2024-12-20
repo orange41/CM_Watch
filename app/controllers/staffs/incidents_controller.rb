@@ -37,6 +37,7 @@ module Staffs
     end    
 
     def show
+      @comments = @incident.comments.where(approved: true) # 承認済みのコメントのみを取得
       @comment = @incident.comments.build
     end
 

@@ -1,7 +1,7 @@
-# app/controllers/admin_panel/comments_controller.rb
 module AdminPanel
   class CommentsController < ApplicationController
     before_action :authenticate_admin!
+    before_action :set_comment, only: [:edit, :update, :destroy, :approve, :reject]
 
     def index
       @comments = Comment.all
@@ -21,11 +21,9 @@ module AdminPanel
     end
 
     def edit
-      @comment = Comment.find(params[:id])
     end
 
     def update
-      @comment = Comment.find(params[:id])
       if @comment.update(comment_params)
         redirect_to admin_panel_comments_path, notice: 'コメントが更新されました。'
       else
@@ -34,15 +32,28 @@ module AdminPanel
     end
 
     def destroy
-      @comment = Comment.find(params[:id])
       @comment.destroy
       redirect_to admin_panel_comments_path, notice: 'コメントが削除されました。'
     end
 
+    def approve
+      @comment.update(approved: true)
+      redirect_to admin_panel_comments_path, notice: 'コメントが承認されました。'
+    end
+
+    def reject
+      @comment.update(approved: false)
+      redirect_to admin_panel_comments_path, notice: 'コメントが却下されました。'
+    end
+
     private
 
+    def set_comment
+      @comment = Comment.find(params[:id])
+    end
+
     def comment_params
-      params.require(:comment).permit(:content, :incident_id, :user_id)
+      params.require(:comment).permit(:content, :incident_id, :staff_id)
     end
   end
 end

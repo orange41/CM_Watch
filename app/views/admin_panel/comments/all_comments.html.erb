@@ -1,0 +1,27 @@
+<h1>すべてのコメント一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>内容</th>
+      <th>状態</th>
+      <th>アクション</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.content %></td>
+        <td><%= comment.approved ? '承認済み' : '未承認' %></td>
+        <td>
+          <% unless comment.approved %>
+            <%= link_to '承認', approve_admin_panel_comment_path(comment), method: :patch %>
+          <% end %>
+          <%= link_to '却下', reject_admin_panel_comment_path(comment), method: :patch %>
+          <%= link_to '編集', edit_admin_panel_comment_path(comment) %>
+          <%= link_to '削除', admin_panel_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
