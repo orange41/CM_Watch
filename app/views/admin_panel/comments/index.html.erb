@@ -1,10 +1,18 @@
-<h1>コメント一覧</h1>
+<h1>コメント管理</h1>
+
+<nav>
+  <ul>
+    <li><%= link_to 'すべてのコメント', admin_panel_comments_path %></li>
+    <li><%= link_to '承認済みコメント', admin_panel_comments_path(approved: 'true') %></li>
+    <li><%= link_to '未承認コメント', admin_panel_comments_path(approved: 'false') %></li>
+  </ul>
+</nav>
+
 <table>
   <thead>
     <tr>
       <th>内容</th>
-      <th>作成日時</th>
-      <th>承認ステータス</th>
+      <th>状態</th>
       <th>アクション</th>
     </tr>
   </thead>
@@ -12,12 +20,13 @@
     <% @comments.each do |comment| %>
       <tr>
         <td><%= comment.content %></td>
-        <td><%= comment.created_at %></td>
         <td><%= comment.approved ? '承認済み' : '未承認' %></td>
         <td>
           <% unless comment.approved %>
-            <%= link_to '承認', approve_admin_panel_incident_comment_path(comment.incident, comment), method: :patch, data: { confirm: 'このコメントを承認しますか？' } %>
-            <%= link_to '却下', reject_admin_panel_incident_comment_path(comment.incident, comment), method: :patch, data: { confirm: 'このコメントを却下しますか？' } %>
+            <%= link_to '承認', approve_admin_panel_comment_path(comment), method: :patch %>
+            <%= link_to '非承認', reject_admin_panel_comment_path(comment), method: :patch %>
+          <% else %>
+            <%= link_to '削除', admin_panel_comment_path(comment), method: :delete, data: { confirm: 'このコメントを削除しますか？' } %>
           <% end %>
         </td>
       </tr>

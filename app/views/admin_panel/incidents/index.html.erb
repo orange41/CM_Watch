@@ -1,4 +1,13 @@
-<h1>事故事例一覧</h1>
+<h1>事故事例管理</h1>
+
+<nav>
+  <ul>
+    <li><%= link_to 'すべての事故事例', admin_panel_incidents_path %></li>
+    <li><%= link_to '承認済み事故事例', admin_panel_incidents_path(approved: 'true') %></li>
+    <li><%= link_to '未承認事故事例', admin_panel_incidents_path(approved: 'false') %></li>
+  </ul>
+</nav>
+
 <table>
   <thead>
     <tr>
@@ -6,20 +15,25 @@
       <th>説明</th>
       <th>発生日時</th>
       <th>カテゴリー</th>
-      <th>承認ステータス</th>
+      <th>状態</th>
       <th>アクション</th>
     </tr>
   </thead>
   <tbody>
     <% @incidents.each do |incident| %>
       <tr>
-        <td><%= link_to incident.title, admin_panel_incident_path(incident) %></td>
-        <td><%= incident.description.truncate(20) %></td> <!-- ここで説明を省略表示 -->
+        <td><%= incident.title %></td>
+        <td><%= incident.description %></td>
         <td><%= incident.occurred_at %></td>
         <td><%= incident.category.title if incident.category %></td>
         <td><%= incident.approved ? '承認済み' : '未承認' %></td>
         <td>
-          <%= link_to '詳細', admin_panel_incident_path(incident) %>
+          <% unless incident.approved %>
+            <%= link_to '承認', approve_admin_panel_incident_path(incident), method: :patch, data: { confirm: 'この事故事例を承認しますか？' } %>
+            <%= link_to '非承認', reject_admin_panel_incident_path(incident), method: :patch, data: { confirm: 'この事故事例を非承認しますか？' } %>
+          <% else %>
+            <%= link_to '削除', admin_panel_incident_path(incident), method: :delete, data: { confirm: 'この事故事例を削除しますか？' } %>
+          <% end %>
         </td>
       </tr>
     <% end %>

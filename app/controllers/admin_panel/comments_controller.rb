@@ -4,7 +4,13 @@ module AdminPanel
     before_action :set_comment, only: [:edit, :update, :destroy, :approve, :reject]
 
     def index
-      @comments = Comment.all
+      @comments = if params[:approved] == 'true'
+                    Comment.where(approved: true)
+                  elsif params[:approved] == 'false'
+                    Comment.where(approved: false)
+                  else
+                    Comment.all
+                  end
     end
 
     def new

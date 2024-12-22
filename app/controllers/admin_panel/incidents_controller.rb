@@ -4,7 +4,13 @@ module AdminPanel
     before_action :set_incident, only: [:show, :edit, :update, :destroy, :approve, :reject]
 
     def index
-      @incidents = Incident.all
+      @incidents = if params[:approved] == 'true'
+                     Incident.where(approved: true)
+                   elsif params[:approved] == 'false'
+                     Incident.where(approved: false)
+                   else
+                     Incident.all
+                   end
     end
 
     def show
