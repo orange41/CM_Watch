@@ -42,8 +42,8 @@ module AdminPanel
     end
 
     def reject
-      @comment.update(approved: false)
-      redirect_to admin_panel_comments_path, notice: 'コメントが却下されました。'
+      @comment.destroy
+      redirect_to admin_panel_comments_path, alert: 'コメントが非承認され削除されました。'
     end
 
     private

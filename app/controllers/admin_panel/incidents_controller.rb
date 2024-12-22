@@ -45,8 +45,8 @@ module AdminPanel
     end
 
     def reject
-      @incident.update(approved: false)
-      redirect_to admin_panel_incidents_path, notice: '事故事例が却下されました。'
+      @incident.destroy
+      redirect_to admin_panel_incidents_path, alert: '事故事例が非承認され削除されました。'
     end
 
     private
