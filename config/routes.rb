@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :incidents
   end
 
-  resources :staffs, only: [:edit, :update] # プロフィール編集および更新ルートの追加
+  resources :staffs, only: [:index, :show, :edit, :update, :destroy] # `show` アクションを追加
 
   get 'admin_panel/dashboard', to: 'homes#admin_dashboard', as: 'admin_panel_admin_dashboard'
   namespace :admin_panel do
