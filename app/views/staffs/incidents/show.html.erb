@@ -10,7 +10,9 @@
   <%= link_to '承認', approve_admin_panel_incident_path(@incident), method: :patch, data: { confirm: 'この事故事例を承認しますか？' } %>
   <%= link_to '却下', reject_admin_panel_incident_path(@incident), method: :patch, data: { confirm: 'この事故事例を却下しますか？' } %>
 <% end %>
-<%= link_to '削除', admin_panel_incident_path(@incident), method: :delete, data: { confirm: 'この事故事例を削除しますか？' } %>
+<% if current_staff == @incident.staff %>
+  <%= link_to '削除', admin_panel_incident_path(@incident), method: :delete, data: { confirm: 'この事故事例を削除しますか？' } %>
+<% end %>
 
 <h2>コメント一覧</h2>
 <table>
@@ -42,4 +44,4 @@
   </div>
 <% end %>
 
-<%= link_to '一覧に戻る', staffs_dashboard_path %>
+<%= link_to '一覧に戻る', staffs_incidents_path %>
