@@ -21,8 +21,10 @@
       <td><%= incident.staff.name if incident.staff %></td>
       <td>
         <%= link_to '詳細', staffs_incident_path(incident) %> |
-        <%= link_to '編集', edit_staffs_incident_path(incident) %> |
-        <%= link_to '削除', staffs_incident_path(incident), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+        <% if incident.staff == current_staff %>
+          <%= link_to '編集', edit_staffs_incident_path(incident) %> |
+          <%= link_to '削除', staffs_incident_path(incident), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+        <% end %>
       </td>
     </tr>
   <% end %>

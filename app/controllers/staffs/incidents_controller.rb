@@ -4,7 +4,7 @@ module Staffs
     before_action :set_incident, only: [:show, :edit, :update, :destroy]
 
     def index
-      @incidents = current_staff.incidents.where(approved: true)
+      @incidents = Incident.where(approved: true)
       @incidents = @incidents.joins(:category).where('incidents.title LIKE ? OR incidents.description LIKE ? OR categories.title LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:search]}%") if params[:search].present?
 
       if params[:sort].present?
@@ -60,7 +60,7 @@ module Staffs
     private
 
     def set_incident
-      @incident = current_staff.incidents.find(params[:id])
+      @incident = Incident.find(params[:id])
     end
 
     def incident_params
