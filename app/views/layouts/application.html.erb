@@ -64,12 +64,16 @@
         <% end %>
 
         <main role="main" class="<%= current_page?(root_path) ? 'col-md-12' : 'col-md-9 ml-sm-auto col-lg-10 px-4' %>">
-          <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-            <section class="text-center">
-              <button class="btn btn-primary btn-lg mb-3" onclick="location.href='user_login.html'">一般ユーザー ログイン</button>
-              <button class="btn btn-secondary btn-lg mb-3" onclick="location.href='admin_login.html'">管理者 ログイン</button>
-            </section>
-          </div>
+          <% if current_page?(root_path) %>
+            <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+              <section class="text-center">
+                <button class="btn btn-primary btn-lg mb-3" onclick="location.href='<%= new_staff_session_path %>'">一般ユーザー ログイン</button>
+                <button class="btn btn-secondary btn-lg mb-3" onclick="location.href='<%= new_admin_session_path %>'">管理者 ログイン</button>
+              </section>
+            </div>
+          <% else %>
+            <%= yield %>
+          <% end %>
         </main>
       </div>
     </div>

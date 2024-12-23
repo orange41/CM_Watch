@@ -9,13 +9,13 @@
     <header>
         <h1>CM Watch</h1>
     </header>
-    <main class="main-content centered-buttons"> <!-- クラスを追加 -->
+    <main class="main-content centered-buttons">
         <section>
             <div class="button-block">
-                <button onclick="location.href='<%= new_staff_registration_path %>'">一般ユーザー ログイン</button>
+                <%= link_to '一般ユーザー ログイン', new_staff_session_path, class: 'btn btn-primary' %>
             </div>
             <div class="button-block">
-                <button onclick="location.href='<%= new_admin_session_path %>'">管理者 ログイン</button>
+                <%= link_to '管理者 ログイン', new_admin_session_path, class: 'btn btn-secondary' %>
             </div>
         </section>
     </main>
