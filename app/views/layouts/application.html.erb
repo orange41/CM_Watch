@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
     <title>CM Watch</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -8,78 +9,109 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    <style>
+      .center-content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: calc(100vh - 200px); /* ヘッダーとフッターを引いた高さ */
+          text-align: center;
+          white-space: nowrap; /* テキストを一列に表示する */
+      }
+      .center-content h1,
+      .center-content p {
+          margin: 0;
+      }
+      header, footer {
+          height: 100px;
+      }
+      .custom-title {
+          white-space: nowrap; /* テキストを一列に表示する */
+      }
+    </style>
+</head>
 
-  <body>
+<body>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">CM Watch</a>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
-          <% if admin_signed_in? %>
-            <li class="nav-item"><%= link_to '管理ダッシュボード', admin_panel_admin_dashboard_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'スタッフ管理', admin_panel_staffs_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
-          <% elsif staff_signed_in? %>
-            <li class="nav-item"><%= link_to 'スタッフダッシュボード', staffs_dashboard_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to '事故事例', staffs_incidents_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'プロフィール', current_staff, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete, class: "nav-link" %></li>
-          <% else %>
-            <li class="nav-item"><%= link_to 'ログイン', new_staff_session_path, class: "nav-link" %></li>
-            <% if current_page?(root_path) %>
-              <li class="nav-item"><%= link_to '管理者ログイン', new_admin_session_path, class: "nav-link" %></li>
-            <% end %>
-          <% end %>
-        </ul>
-      </div>
+        <a class="navbar-brand" href="/">CM Watch</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <% if admin_signed_in? %>
+                    <li class="nav-item"><%= link_to '管理ダッシュボード', admin_panel_admin_dashboard_path, class: "nav-link" %></li>
+                    <li class="nav-item"><%= link_to 'スタッフ管理', admin_panel_staffs_path, class: "nav-link" %></li>
+                    <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
+                <% elsif staff_signed_in? %>
+                    <li class="nav-item"><%= link_to 'スタッフダッシュボード', staffs_dashboard_path, class: "nav-link" %></li>
+                    <li class="nav-item"><%= link_to '事故事例', staffs_incidents_path, class: "nav-link" %></li>
+                    <li class="nav-item"><%= link_to 'プロフィール', edit_staff_path(current_staff), class: "nav-link" %></li>
+                    <li class="nav-item"><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete, class: "nav-link" %></li>
+                <% else %>
+                    <li class="nav-item"><%= link_to 'ログイン', new_staff_session_path, class: "nav-link" %></li>
+                    <li class="nav-item"><%= link_to '管理者ログイン', new_admin_session_path, class: "nav-link" %></li>
+                <% end %>
+                <li class="nav-item"><%= link_to 'About', about_path, class: "nav-link" %></li>
+            </ul>
+        </div>
     </nav>
 
     <div class="container-fluid">
-      <div class="row">
-        <% unless current_page?(root_path) %>
-          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-              <ul class="nav flex-column">
-                <% if admin_signed_in? %>
-                  <li class="nav-item"><%= link_to 'ホーム', admin_panel_admin_dashboard_path, class: "nav-link" %></li>
-                  <li class="nav-item"><%= link_to 'スタッフ一覧', admin_panel_staffs_path, class: "nav-link" %></li>
-                  <li class="nav-item"><%= link_to '新しいスタッフを登録', new_admin_panel_staff_path, class: "nav-link" %></li>
-                  <li class="nav-item"><%= link_to '事故事例管理', admin_panel_incidents_path, class: "nav-link" %></li>
-                  <li class="nav-item"><%= link_to 'カテゴリー管理', categories_path, class: "nav-link" %></li> <!-- カテゴリー管理リンクを追加 -->
-                  <li class="nav-item"><%= link_to 'コメント管理', admin_panel_comments_path, class: "nav-link" %></li> <!-- コメント管理リンクを追加 -->
-                  <li class="nav-item"><%= link_to 'プロフィール編集', admin_panel_edit_admin_dashboard_path, class: "nav-link" %></li> <!-- プロフィール編集リンクを修正 -->
-                  <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
-                <% elsif staff_signed_in? %>
-                  <li class="nav-item"><%= link_to 'ホーム', staffs_dashboard_path, class: "nav-link" %></li>
-                  <li class="nav-item"><%= link_to '事故事例', staffs_incidents_path, class: "nav-link" %></li>
-                  <li class="nav-item"><%= link_to 'プロフィール', current_staff, class: "nav-link" %></li>
-                  <li class="nav-item"><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete, class: "nav-link" %></li>
-                <% else %>
-                  <li class="nav-item"><%= link_to 'ログイン', new_staff_session_path, class: "nav-link" %></li>
-                <% end %>
-              </ul>
-            </div>
-          </nav>
-        <% end %>
+        <div class="row">
+            <% unless current_page?(root_path) %>
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                          <% if admin_signed_in? %>
+                            <li class="nav-item"><%= link_to 'ホーム', admin_panel_admin_dashboard_path, class: "nav-link" %></li>
+                            <li class="nav-item"><%= link_to 'スタッフ一覧', admin_panel_staffs_path, class: "nav-link" %></li>
+                            <li class="nav-item"><%= link_to '新しいスタッフを登録', new_admin_panel_staff_path, class: "nav-link" %></li>
+                            <li class="nav-item"><%= link_to '事故事例管理', admin_panel_incidents_path, class: "nav-link" %></li>
+                            <li class="nav-item"><%= link_to 'カテゴリー管理', categories_path, class: "nav-link" %></li>
+                            <li class="nav-item"><%= link_to 'コメント管理', admin_panel_comments_path, class: "nav-link" %></li>
+                            <li class="nav-item"><%= link_to 'プロフィール編集', admin_panel_edit_admin_dashboard_path, class: "nav-link" %></li>
+                            <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
+                          <% elsif staff_signed_in? %>
+                            <li class="nav-item"><%= link_to 'ホーム', staffs_dashboard_path, class: "nav-link" %></li>
+                            <li class="nav-item"><%= link_to '事故事例', staffs_incidents_path, class: "nav-link" %></li>
+                            <li class="nav-item"><%= link_to 'プロフィール編集', edit_staff_path(current_staff), class: "nav-link" %></li>
+                            <li class="nav-item"><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete, class: "nav-link" %></li>
+                          <% else %>
+                            <li class="nav-item"><%= link_to 'ログイン', new_staff_session_path, class: "nav-link" %></li>
+                          <% end %>
+                        </ul>
+                    </div>
+                </nav>
+            <% end %>
 
-        <main role="main" class="<%= current_page?(root_path) ? 'col-md-12' : 'col-md-9 ml-sm-auto col-lg-10 px-4' %>">
-          <% if current_page?(root_path) %>
-            <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-              <section class="text-center">
-                <button class="btn btn-primary btn-lg mb-3" onclick="location.href='<%= new_staff_session_path %>'">一般ユーザー ログイン</button>
-                <button class="btn btn-secondary btn-lg mb-3" onclick="location.href='<%= new_admin_session_path %>'">管理者 ログイン</button>
-              </section>
-            </div>
-          <% else %>
-            <%= yield %>
-          <% end %>
-        </main>
-      </div>
+            <main role="main" class="<%= current_page?(root_path) ? 'col-md-12' : 'col-md-9 ml-sm-auto col-lg-10 px-4' %>">
+                <% if current_page?(root_path) %>
+                    <div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 100px);">
+                        <section class="text-center">
+                            <button class="btn btn-primary btn-lg mb-3" onclick="location.href='<%= new_staff_session_path %>'">一般ユーザー ログイン</button>
+                            <button class="btn btn-secondary btn-lg mb-3" onclick="location.href='<%= new_admin_session_path %>'">管理者 ログイン</button>
+                        </section>
+                    </div>
+                <% elsif current_page?(about_path) %>
+                    <div class="center-content">
+                        <section class="text-center">
+                            <h1>About Us</h1>
+                            <p>Welcome to CM Watch. We are dedicated to providing...</p>
+                            <!-- ここにさらに詳細な情報や画像などを追加できます -->
+                        </section>
+                    </div>
+                <% else %>
+                    <%= yield %>
+                <% end %>
+            </main>
+        </div>
     </div>
+
+    <footer>
+        <p>山田ファシリティーサービス株式会社 | XX-XXXX-XXXX</p>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

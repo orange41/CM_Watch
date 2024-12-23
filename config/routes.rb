@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   }
 
   root 'homes#index'
-
+  get 'about', to: 'homes#about', as: 'about'
   resources :categories
 
   get 'staffs/dashboard', to: 'homes#user_dashboard', as: 'staffs_dashboard'
