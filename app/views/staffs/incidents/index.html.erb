@@ -1,4 +1,4 @@
-<h1>事故事例管理</h1>
+<h1>事故事例一覧</h1>
 <%= form_with url: staffs_incidents_path, method: :get, local: true do %>
   <div class="field">
     <%= label_tag :search, '検索' %>
@@ -7,25 +7,29 @@
   </div>
 <% end %>
 <%= link_to '新しい事故事例を投稿', new_staffs_incident_path %>
-<table>
-  <tr>
-    <th><%= link_to 'タイトル', staffs_incidents_path(sort: 'title', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
-    <th><%= link_to 'カテゴリー', staffs_incidents_path(sort: 'category', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
-    <th><%= link_to '投稿者', staffs_incidents_path(sort: 'staff', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
-    <th>アクション</th>
-  </tr>
-  <% @incidents.each do |incident| %>
+<table class="table table-bordered">
+  <thead>
     <tr>
-      <td><%= incident.title %></td>
-      <td><%= incident.category.title if incident.category %></td>
-      <td><%= incident.staff.name if incident.staff %></td>
-      <td>
-        <%= link_to '詳細', staffs_incident_path(incident) %> |
-        <% if incident.staff == current_staff %>
-          <%= link_to '編集', edit_staffs_incident_path(incident) %> |
-          <%= link_to '削除', staffs_incident_path(incident), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-        <% end %>
-      </td>
+      <th><%= link_to 'タイトル', staffs_incidents_path(sort: 'title', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
+      <th><%= link_to 'カテゴリー', staffs_incidents_path(sort: 'category', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
+      <th><%= link_to '投稿者', staffs_incidents_path(sort: 'staff', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
+      <th>アクション</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% @incidents.each do |incident| %>
+      <tr>
+        <td><%= incident.title %></td>
+        <td><%= incident.category.title if incident.category %></td>
+        <td><%= incident.staff.name if incident.staff %></td>
+        <td>
+          <%= link_to '詳細', staffs_incident_path(incident) %> |
+          <% if incident.staff == current_staff %>
+            <%= link_to '編集', edit_staffs_incident_path(incident) %> |
+            <%= link_to '削除', staffs_incident_path(incident), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
