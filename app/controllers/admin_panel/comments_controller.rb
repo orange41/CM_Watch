@@ -48,8 +48,8 @@ module AdminPanel
     end
 
     def reject
-      @comment.destroy
-      redirect_to admin_panel_comments_path, alert: 'コメントが非承認され削除されました。'
+      @comment.update(approved: false)
+      redirect_to admin_panel_comments_path, alert: 'コメントが非承認されました。'
     end
 
     private

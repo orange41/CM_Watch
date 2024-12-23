@@ -35,8 +35,21 @@ class Staffs::RegistrationsController < Devise::RegistrationsController
     staff_path(resource)
   end
 
+  def after_update_path_for(resource)
+    Rails.logger.debug "Redirecting after update to: #{staff_path(resource)}"
+    staff_path(resource) # 更新後にスタッフのプロフィールページにリダイレクト
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:employee_number, :email, :name, :password, :password_confirmation])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:employee_number, :email, :name, :password, :password_confirmation])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:employee_number, :email, :name, :password, :password_confirmation, :current_password])
+  end
+
+  def update_resource(resource, params)
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+    resource.update_without_password(params)
   end
 end

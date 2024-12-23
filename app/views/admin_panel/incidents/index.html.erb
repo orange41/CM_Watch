@@ -12,7 +12,6 @@
   <thead>
     <tr>
       <th>タイトル</th>
-      <th>説明</th>
       <th>発生日時</th>
       <th>カテゴリー</th>
       <th>状態</th>
@@ -23,11 +22,11 @@
     <% @incidents.each do |incident| %>
       <tr>
         <td><%= incident.title %></td>
-        <td><%= incident.description %></td>
         <td><%= incident.occurred_at %></td>
         <td><%= incident.category.title if incident.category %></td>
         <td><%= incident.approved ? '承認済み' : '未承認' %></td>
         <td>
+          <%= link_to '詳細', admin_panel_incident_path(incident) %>
           <% unless incident.approved %>
             <%= link_to '承認', approve_admin_panel_incident_path(incident), method: :patch, data: { confirm: 'この事故事例を承認しますか？' } %>
             <%= link_to '非承認', reject_admin_panel_incident_path(incident), method: :patch, data: { confirm: 'この事故事例を非承認しますか？' } %>

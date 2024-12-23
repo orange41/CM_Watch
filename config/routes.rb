@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :incidents
   end
 
-  resources :staffs, only: [:index, :show, :edit, :update, :destroy] # `show` アクションを追加
+  resources :staffs, only: [:index, :show, :edit, :update, :destroy]
 
   get 'admin_panel/dashboard', to: 'homes#admin_dashboard', as: 'admin_panel_admin_dashboard'
   namespace :admin_panel do
@@ -39,6 +39,10 @@ Rails.application.routes.draw do
       end
     end
     resources :comments, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
+      member do
+        patch :approve
+        patch :reject
+      end
       collection do
         get :all_comments
       end
