@@ -1,61 +1,76 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>あなたのアプリケーション名</title>
+    <title>CM Watch</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <nav>
-      <ul class="nav-right">
-        <% if admin_signed_in? %>
-          <li><%= link_to '管理ダッシュボード', admin_panel_admin_dashboard_path %></li>
-          <li><%= link_to 'スタッフ管理', admin_panel_staffs_path %></li>
-          <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
-        <% elsif staff_signed_in? %>
-          <li><%= link_to 'スタッフダッシュボード', staffs_dashboard_path %></li>
-          <li><%= link_to '事故事例', staffs_incidents_path %></li>
-          <li><%= link_to 'プロフィール', current_staff %></li>
-          <li><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete %></li>
-        <% else %>
-          <li><%= link_to 'ログイン', new_staff_session_path %></li>
-          <% if current_page?(root_path) %>
-            <li><%= link_to '管理者ログイン', new_admin_session_path %></li>
-          <% end %>
-        <% end %>
-      </ul>
-    </nav>
-    <div class="container <%= 'homepage' if current_page?(root_path) %>">
-      <% unless current_page?(root_path) %>
-        <div class="sidebar">
-          <ul>
-            <% if admin_signed_in? %>
-              <li><%= link_to 'ホーム', admin_panel_admin_dashboard_path %></li> <!-- 管理者ダッシュボード用ホームボタン -->
-              <li><%= link_to 'スタッフ一覧', admin_panel_staffs_path %></li>
-              <li><%= link_to '新しいスタッフを登録', new_admin_panel_staff_path %></li>
-              <li><%= link_to '事故事例管理', admin_panel_incidents_path %></li>
-              <li><%= link_to 'カテゴリー管理', categories_path %></li> <!-- カテゴリー管理リンクを追加 -->
-              <li><%= link_to 'コメント管理', admin_panel_comments_path %></li> <!-- コメント管理リンクを追加 -->
-              <li><%= link_to 'プロフィール編集', admin_panel_edit_admin_dashboard_path %></li> <!-- プロフィール編集リンクを修正 -->
-              <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
-            <% elsif staff_signed_in? %>
-              <li><%= link_to 'ホーム', staffs_dashboard_path %></li> <!-- スタッフダッシュボード用ホームボタン -->
-              <li><%= link_to '事故事例', staffs_incidents_path %></li>
-              <li><%= link_to 'プロフィール', current_staff %></li>
-              <li><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete %></li>
-            <% else %>
-              <li><%= link_to 'ログイン', new_staff_session_path %></li>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">CM Watch</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <% if admin_signed_in? %>
+            <li class="nav-item"><%= link_to '管理ダッシュボード', admin_panel_admin_dashboard_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'スタッフ管理', admin_panel_staffs_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
+          <% elsif staff_signed_in? %>
+            <li class="nav-item"><%= link_to 'スタッフダッシュボード', staffs_dashboard_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to '事故事例', staffs_incidents_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'プロフィール編集', edit_staff_path(current_staff), class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete, class: "nav-link" %></li>
+          <% else %>
+            <li class="nav-item"><%= link_to 'ログイン', new_staff_session_path, class: "nav-link" %></li>
+            <% if current_page?(root_path) %>
+              <li class="nav-item"><%= link_to '管理者ログイン', new_admin_session_path, class: "nav-link" %></li>
             <% end %>
-          </ul>
-        </div>
-      <% end %>
-      <div class="content">
-        <%= yield %>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <% unless current_page?(root_path) %>
+          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+              <ul class="nav flex-column">
+                <% if admin_signed_in? %>
+                  <li class="nav-item"><%= link_to 'ホーム', admin_panel_admin_dashboard_path, class: "nav-link" %></li>
+                  <li class="nav-item"><%= link_to 'スタッフ一覧', admin_panel_staffs_path, class: "nav-link" %></li>
+                  <li class="nav-item"><%= link_to '新しいスタッフを登録', new_admin_panel_staff_path, class: "nav-link" %></li>
+                  <li class="nav-item"><%= link_to '事故事例管理', admin_panel_incidents_path, class: "nav-link" %></li>
+                  <li class="nav-item"><%= link_to 'カテゴリー管理', categories_path, class: "nav-link" %></li>
+                  <li class="nav-item"><%= link_to 'コメント管理', admin_panel_comments_path, class: "nav-link" %></li>
+                  <li class="nav-item"><%= link_to 'プロフィール編集', edit_admin_panel_admin_dashboard_path, class: "nav-link" %></li>
+                  <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
+                <% elsif staff_signed_in? %>
+                  <li class="nav-item"><%= link_to 'ホーム', staffs_dashboard_path, class: "nav-link" %></li>
+                  <li class="nav-item"><%= link_to '事故事例', staffs_incidents_path, class: "nav-link" %></li>
+                  <li class="nav-item"><%= link_to 'プロフィール編集', edit_staff_path(current_staff), class: "nav-link" %></li>
+                  <li class="nav-item"><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete, class: "nav-link" %></li>
+                <% else %>
+                  <li class="nav-item"><%= link_to 'ログイン', new_staff_session_path, class: "nav-link" %></li>
+                <% end %>
+              </ul>
+            </div>
+          </nav>
+        <% end %>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <%= yield %>
+        </main>
       </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
