@@ -1,22 +1,40 @@
-<h2>管理者ログイン</h2>
+<h2 class="custom-title">管理者ログイン</h2>
 
 <%= form_with scope: :admin, url: admin_session_path, local: true do |form| %>
   <div class="field">
     <%= form.label :employee_number, '社員番号' %><br />
-    <%= form.text_field :employee_number, autofocus: true %>
+    <%= form.text_field :employee_number, class: 'form-control', autofocus: true %>
   </div>
 
   <div class="field">
     <%= form.label :password, 'パスワード' %><br />
-    <%= form.password_field :password, autocomplete: "current-password" %>
+    <%= form.password_field :password, class: 'form-control', autocomplete: "current-password" %>
   </div>
 
   <div class="actions">
-    <%= form.submit "ログイン" %>
+    <%= form.submit "ログイン", class: 'btn btn-primary' %>
   </div>
 <% end %>
 
 <div class="links">
-  <%= link_to 'スタッフログインはこちら', new_staff_session_path %>
+  <%= link_to 'スタッフログインはこちら', new_staff_session_path %><br />
   <%= link_to '初回ログインはこちら', new_admin_registration_path %>
 </div>
+
+<style>
+  .custom-title {
+      font-size: 2em; /* フォントサイズを変更 */
+      text-align: center; /* テキストを中央揃え */
+      margin-top: 20px; /* 上にスペースを追加 */
+  }
+  .field {
+      margin-bottom: 15px; /* フィールド間のスペースを増やす */
+  }
+  .actions {
+      text-align: center; /* ボタンを中央揃え */
+  }
+  .links {
+      text-align: center; /* リンクを中央揃え */
+      margin-top: 10px; /* 上にスペースを追加 */
+  }
+</style>
