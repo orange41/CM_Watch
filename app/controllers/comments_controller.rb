@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_staff!
-  before_action :set_incident
+  before_action :set_incident, only: [:create, :approve]
 
   def create
     @comment = @incident.comments.build(comment_params)
@@ -10,9 +10,15 @@ class CommentsController < ApplicationController
     if @comment.save
       # 管理者に通知を送信
       Admin.find_each do |admin|
-        Notification.create(
+        notification = Notification.new(
           notifiable: admin,
-          message: '新しいコメントの承認をお願いします。'
+          message: "新しいコメントの承認をお願いします。事故事例: #{@incident.title}, コメント内容: #{@comment.content}",
+          read: false
+        )
+        if notification.save
+          puts "Notification created for #{admin.email}"
+        else
+          puts notification.errors.full_messages
         end
       end
 
@@ -26,10 +32,17 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.update(approved: true)
 
-    Notification.create(
+    # スタッフに通知を送信
+    notification = Notification.new(
       notifiable: @comment.staff,
-      message: 'あなたのコメントが承認されました。掲示板に表示されています。'
+      message: "あなたのコメントが承認されました。事故事例: #{@comment.incident.title}, コメント内容: #{@comment.content}",
+      read: false
     )
+    if notification.save
+      puts "Notification created for #{@comment.staff.email}"
+    else
+      puts notification.errors.full_messages
+    end
 
     redirect_to staffs_incident_path(@comment.incident), notice: 'コメントが承認されました'
   end

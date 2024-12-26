@@ -1,65 +1,49 @@
-module AdminPanel
-  class CommentsController < ApplicationController
-    before_action :authenticate_admin!
-    before_action :set_comment, only: [:edit, :update, :destroy, :approve, :reject]
+class AdminPanel::CommentsController < ApplicationController
+  before_action :authenticate_admin!
 
-    def index
-      @comments = if params[:approved] == 'true'
-                    Comment.where(approved: true)
-                  elsif params[:approved] == 'false'
-                    Comment.where(approved: false)
-                  else
-                    Comment.all
-                  end
-    end
+  def index
+    @comments = Comment.all
+  end
 
-    def new
-      @comment = Comment.new
-    end
+  def approve
+    puts "Approve action called for comment #{params[:id]}"
 
-    def create
-      @comment = Comment.new(comment_params)
-      if @comment.save
-        redirect_to admin_panel_comments_path, notice: '新しいコメントが投稿されました。'
-      else
-        render :new
+    @comment = Comment.find(params[:id])
+
+    if @comment.update(approved: true)
+      puts "Comment approved: #{@comment.id}"
+
+      begin
+        staff = @comment.staff
+        puts "Staff: #{staff.email}" # デバッグメッセージ
+        incident = @comment.incident
+        puts "Incident: #{incident.title}" # デバッグメッセージ
+
+        # スタッフに通知を送信
+        notification = Notification.new(
+          notifiable: staff,
+          message: "あなたのコメントが承認されました。事故事例: #{incident.title}, コメント内容: #{@comment.content}",
+          read: false
+        )
+        if notification.save
+          puts "Notification created for #{staff.email}"
+        else
+          puts "Failed to create notification: #{notification.errors.full_messages.join(", ")}"
+        end
+      rescue => e
+        puts "Exception encountered while creating notification: #{e.message}"
       end
+
+    else
+      puts "Failed to approve comment: #{@comment.errors.full_messages.join(", ")}"
     end
 
-    def edit
-    end
+    redirect_to admin_panel_comments_path, notice: 'コメントが承認されました。'
+  end
 
-    def update
-      if @comment.update(comment_params)
-        redirect_to admin_panel_comments_path, notice: 'コメントが更新されました。'
-      else
-        render :edit
-      end
-    end
+  private
 
-    def destroy
-      @comment.destroy
-      redirect_to admin_panel_comments_path, notice: 'コメントが削除されました。'
-    end
-
-    def approve
-      @comment.update(approved: true)
-      redirect_to admin_panel_comments_path, notice: 'コメントが承認されました。'
-    end
-
-    def reject
-      @comment.update(approved: false)
-      redirect_to admin_panel_comments_path, alert: 'コメントが非承認されました。'
-    end
-
-    private
-
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
-
-    def comment_params
-      params.require(:comment).permit(:content, :incident_id, :staff_id)
-    end
+  def set_comment
+    @comment = Comment.find(params[:id])
   end
 end

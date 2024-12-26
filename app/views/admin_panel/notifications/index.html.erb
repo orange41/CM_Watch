@@ -1,4 +1,7 @@
 <h2>管理者用お知らせ</h2>
+<p><%= @incident_approval_requests %> 件の事故事例投稿承認申請があります。</p>
+<p><%= @comment_approval_requests %> 件のコメント承認申請があります。</p>
+
 <ul class="list-group">
   <% @notifications.each do |notification| %>
     <li class="list-group-item d-flex justify-content-between align-items-center">

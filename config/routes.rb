@@ -21,6 +21,11 @@ Rails.application.routes.draw do
         patch :approve
       end
     end
+    resources :notifications, only: [:index] do
+      member do
+        patch :mark_as_read
+      end
+    end
   end
 
   resources :staffs, only: [:index, :show, :edit, :update, :destroy]
@@ -52,12 +57,14 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :notifications, only: [:index] do
-      member do
-        patch :mark_as_read
+    # 管理者用通知のルート
+      resources :notifications, only: [:index] do
+        member do
+          patch :mark_as_read
+        end
       end
     end
-  end
+    
 
   resources :incidents, only: [] do
     resources :comments, only: [:create]

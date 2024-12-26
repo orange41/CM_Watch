@@ -46,8 +46,23 @@ module AdminPanel
     end
 
     def approve
-      @incident.update(approved: true)
-      redirect_to admin_panel_incidents_path, notice: '事故事例が承認されました。'
+      if @incident.update(approved: true)
+        # スタッフに通知を送信
+        notification = Notification.new(
+          notifiable: @incident.staff,
+          message: "あなたの事故事例が承認されました。タイトル: #{@incident.title}",
+          read: false
+        )
+        if notification.save
+          puts "Notification created for #{@incident.staff.email}"
+        else
+          puts "Failed to create notification: #{notification.errors.full_messages.join(", ")}"
+        end
+
+        redirect_to admin_panel_incidents_path, notice: '事故事例が承認されました。'
+      else
+        redirect_to admin_panel_incidents_path, alert: '事故事例の承認に失敗しました。'
+      end
     end
 
     def reject
