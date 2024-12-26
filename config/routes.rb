@@ -30,8 +30,8 @@ Rails.application.routes.draw do
 
   resources :staffs, only: [:index, :show, :edit, :update, :destroy]
 
-  get 'admin_panel/dashboard', to: 'homes#admin_dashboard', as: 'admin_panel_admin_dashboard'
   namespace :admin_panel do
+    get 'dashboard', to: 'dashboards#show', as: 'admin_dashboard'
     get 'dashboard/edit', to: 'dashboards#edit', as: 'edit_admin_dashboard'
     patch 'dashboard', to: 'dashboards#update', as: 'admin_dashboard_update'
     resources :staffs, only: [:index, :show, :new, :create, :destroy]
@@ -58,13 +58,12 @@ Rails.application.routes.draw do
     end
 
     # 管理者用通知のルート
-      resources :notifications, only: [:index] do
-        member do
-          patch :mark_as_read
-        end
+    resources :notifications, only: [:index] do
+      member do
+        patch :mark_as_read
       end
     end
-    
+  end
 
   resources :incidents, only: [] do
     resources :comments, only: [:create]

@@ -2,7 +2,13 @@
 
 <% if current_admin %>
   <p>ようこそ、<%= current_admin.name %> さん！</p>
-  <!-- ダッシュボードコンテンツをここに追加 -->
+
+  <h2>最新の通知</h2>
+  <ul>
+    <% @notifications.each do |notification| %>
+      <li><%= notification.message %> (<%= notification.created_at.strftime("%Y-%m-%d %H:%M") %>)</li>
+    <% end %>
+  </ul>
 <% else %>
   <p>管理者情報が見つかりません。ログインし直してください。</p>
 <% end %>

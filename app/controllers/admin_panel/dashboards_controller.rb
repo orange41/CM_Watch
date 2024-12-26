@@ -3,8 +3,11 @@ module AdminPanel
     before_action :authenticate_admin!
     before_action :set_admin, only: [:show, :edit, :update]
 
+
+
     def show
       @admin = current_admin
+      @notifications = current_admin.notifications.order(created_at: :desc).limit(5)
     end
 
     def edit
