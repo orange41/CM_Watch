@@ -1,7 +1,28 @@
-<h1>スタッフダッシュボード</h1>
+<h1 class="text-center">スタッフダッシュボード</h1>
+
 <% if current_staff %>
-  <p>ようこそ、<%= current_staff.name %> さん！</p>
-  <!-- ダッシュボードコンテンツをここに追加 -->
+  <p class="text-center">ようこそ、<%= current_staff.name %> さん！</p>
+
+  <!-- 他のダッシュボードコンテンツをここに追加 -->
+
+  <!-- 他のコンテンツと通知の間に余白を追加 -->
+  <div class="mt-5"></div> 
+  
+  <!-- このdivで全体の高さを確保し、通知を下に配置 -->
+  <div class="d-flex flex-column" style="min-height: 80vh;">
+    <!-- flex-grow-1で他のコンテンツが上部に配置されるようにする -->
+    <div class="flex-grow-1"></div>
+    
+    <!-- 通知セクション -->
+    <div class="mb-5 mt-auto">
+      <h2 class="text-center">最新の通知</h2>
+      <ul class="list-unstyled text-center">
+        <% @notifications.each do |notification| %>
+          <li><%= notification.message %> (<%= notification.created_at.strftime("%Y-%m-%d %H:%M") %>)</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 <% else %>
-  <p>スタッフ情報が見つかりません。ログインし直してください。</p>
+  <p class="text-center">スタッフ情報が見つかりません。ログインし直してください。</p>
 <% end %>

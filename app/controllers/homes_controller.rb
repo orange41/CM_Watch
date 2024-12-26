@@ -13,6 +13,7 @@ class HomesController < ApplicationController
 
   def user_dashboard
     @staff = current_staff
+    @notifications = current_staff.notifications.order(created_at: :desc).limit(5)
     render 'staffs/show'
   end
 
