@@ -2,22 +2,23 @@
   <%= render "devise/shared/error_messages", resource: resource %> <!-- 変更箇所 -->
 
   <div class="field">
-    <%= f.label :employee_number %><br />
+    <%= f.label :社員番号 %><br />
     <%= f.text_field :employee_number %>
   </div>
 
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :メールアドレス %><br />
     <%= f.email_field :email %>
   </div>
 
   <div class="field">
-    <%= f.label :password %> <% if @minimum_password_length %><em>(<%= @minimum_password_length %> characters minimum)</em><% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.label :パスワード %> <em>(英数字6文字以上)</em><br />
+    <%= f.password_field :password, autocomplete: "new-password", placeholder: "英数字6文字以上" %>
+    <small class="form-text text-muted">パスワードは英数字6文字以上で入力してください。</small>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :パスワード確認 %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 

@@ -7,13 +7,14 @@
   </div>
 
   <div class="field">
-    <%= form.label :email %><br />
+    <%= form.label :email, 'メールアドレス' %><br />
     <%= form.email_field :email, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= form.label :password, 'パスワード' %><br />
-    <%= form.password_field :password, autocomplete: "new-password" %>
+    <%= form.label :password, 'パスワード' %> <em>(英数字6文字以上)</em><br />
+    <%= form.password_field :password, autocomplete: "new-password", placeholder: "英数字6文字以上" %>
+    <small class="form-text text-muted">パスワードは英数字6文字以上で入力してください。</small>
   </div>
 
   <div class="field">
