@@ -44,68 +44,89 @@
 </head>
 
 <body>
-    <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">CM Watch</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
-                <% if admin_signed_in? %>
-                    <li class="nav-item">
-                      <%= link_to admin_panel_admin_dashboard_path, class: "nav-link" do %>
-                       <i class="fa-solid fa-house"></i> 管理者ダッシュボード
-                        <% end %>
-                    </li>
-                    <li class="nav-item">
-                       <%= link_to  admin_panel_staffs_path, class: "nav-link" do %>
-                        <i class="fa-solid fa-people-group"></i> スタッフ一覧
-                         <% end %>
-                        </li>
-                    <li class="nav-item"><%= link_to destroy_admin_session_path, method: :delete, class: "nav-link" do%>
-                        <i class="fa-solid fa-right-from-bracket"></i>ログアウト
-                        <% end %>
-                        </li>
-                <% elsif staff_signed_in? %>
-                    <li class="nav-item">
-                    <%= link_to  staffs_dashboard_path, class: "nav-link" do%>
-                        <i class="fa-solid fa-house"></i>スタッフダッシュボード
-                        <% end %>
-                        </li>
-                    <li class="nav-item">
-                    <%= link_to  staffs_incidents_path, class: "nav-link" do %>
-                        <i class="fa-solid fa-person-falling-burst"></i>事故事例
-                        <% end %>
-                        </li>
-                    <li class="nav-item">
-                    <%= link_to  edit_staff_path(current_staff), class: "nav-link" do%>
-                        <i class="fa-solid fa-id-card"></i>プロフィール編集
-                        <% end %>
-                        </li>
-                    <li class="nav-item">
-                    <%= link_to  destroy_staff_session_path, method: :delete, class: "nav-link" do%>
-                        <i class="fa-solid fa-right-from-bracket"></i>ログアウト
-                        <% end %>
-                        </li>
-                <% else %>
-                    <li class="nav-item">
-                    <%= link_to  new_staff_session_path, class: "nav-link" do %>
-                        <i class="fa-regular fa-user"></i>スタッフログイン
-                        <% end %>
-                        </li>
-                    <li class="nav-item">
-                    <%= link_to  new_admin_session_path, class: "nav-link" do %>
-                        <i class="fa-solid fa-user"></i>管理者ログイン
-                        <% end %>
-                        </li>
-                <% end %>
+<!-- ナビゲーションバー -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">CM Watch</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <% if admin_signed_in? %>
                 <li class="nav-item">
-                 <%= link_to about_path, class: "nav-link" do %>
-                  <i class="fa-solid fa-circle-info"></i> About
-                <% end %>
+                    <%= link_to admin_panel_admin_dashboard_path, class: "nav-link" do %>
+                        <i class="fa-solid fa-house"></i> 管理者ダッシュボード
+                    <% end %>
                 </li>
+                <li class="nav-item">
+                    <%= link_to admin_panel_staffs_path, class: "nav-link" do %>
+                        <i class="fa-solid fa-people-group"></i> スタッフ一覧
+                    <% end %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link" do %>
+                        <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                    <% end %>
+                </li>
+            <% elsif staff_signed_in? %>
+                <li class="nav-item">
+                    <%= link_to staffs_dashboard_path, class: "nav-link" do %>
+                        <i class="fa-solid fa-house"></i> スタッフダッシュボード
+                    <% end %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to staffs_incidents_path, class: "nav-link" do %>
+                        <i class="fa-solid fa-person-falling-burst"></i> 事故事例
+                    <% end %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to edit_staff_path(current_staff), class: "nav-link" do %>
+                        <i class="fa-solid fa-id-card"></i> プロフィール編集
+                    <% end %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to destroy_staff_session_path, method: :delete, class: "nav-link" do %>
+                        <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                    <% end %>
+                </li>
+            <% else %>
+                <li class="nav-item">
+                    <%= link_to new_staff_session_path, class: "nav-link" do %>
+                        <i class="fa-regular fa-user"></i> スタッフログイン
+                    <% end %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to new_admin_session_path, class: "nav-link" do %>
+                        <i class="fa-solid fa-user"></i> 管理者ログイン
+                    <% end %>
+                </li>
+            <% end %>
+            <li class="nav-item">
+                <%= link_to about_path, class: "nav-link" do %>
+                    <i class="fa-solid fa-circle-info"></i> About
+                <% end %>
+            </li>
+            <% if admin_signed_in? %>
+                <li class="nav-item">
+                    <%= link_to notifications_path, class: "nav-link" do %>
+                        <i class="fas fa-bell"></i>
+                        <% if current_admin.notifications.unread.count > 0 %>
+                            <span class="badge">NEW!</span>
+                        <% end %>
+                    <% end %>
+                </li>
+            <% elsif staff_signed_in? %>
+                <li class="nav-item">
+                    <%= link_to notifications_path, class: "nav-link" do %>
+                        <i class="fas fa-bell"></i>
+                        <% if current_staff.notifications.unread.count > 0 %>
+                            <span class="badge">NEW!</span>
+                        <% end %>
+                    <% end %>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+</nav>
 
-            </ul>
-        </div>
-    </nav>
+
 
     <div class="container-fluid">
     <div class="row">

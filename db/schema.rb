@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_12_19_023846) do
+ActiveRecord::Schema.define(version: 2024_12_26_110257) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 2024_12_19_023846) do
     t.integer "category_id"
     t.boolean "approved"
     t.index ["staff_id"], name: "index_incidents_on_staff_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "notifiable_type", null: false
+    t.integer "notifiable_id", null: false
+    t.string "message"
+    t.boolean "read", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
   end
 
   create_table "staffs", force: :cascade do |t|

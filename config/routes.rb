@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   get 'staffs/dashboard', to: 'homes#user_dashboard', as: 'staffs_dashboard'
 
   namespace :staffs do
-    resources :incidents
+    resources :incidents do
+      member do
+        patch :approve
+      end
+    end
   end
 
   resources :staffs, only: [:index, :show, :edit, :update, :destroy]
@@ -47,9 +51,28 @@ Rails.application.routes.draw do
         get :all_comments
       end
     end
+
+    resources :notifications, only: [:index] do
+      member do
+        patch :mark_as_read
+      end
+    end
   end
 
   resources :incidents, only: [] do
     resources :comments, only: [:create]
+  end
+
+  resources :comments do
+    member do
+      patch :approve
+    end
+  end
+
+  # 一般的な通知ルート
+  resources :notifications, only: [:index] do
+    member do
+      patch :mark_as_read
+    end
   end
 end

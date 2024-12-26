@@ -6,6 +6,8 @@ class Admin < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :password, length: { minimum: 6 }, allow_blank: true
   validate :name_presence, on: :update
+  
+  has_many :notifications, as: :notifiable
 
   private
 
