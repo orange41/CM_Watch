@@ -5,12 +5,29 @@ module AdminPanel
 
     def index
       @incidents = if params[:approved] == 'true'
-                     Incident.where(approved: true)
+                     Incident.includes(:category, :staff).where(approved: true)
                    elsif params[:approved] == 'false'
-                     Incident.where(approved: false)
+                     Incident.includes(:category, :staff).where(approved: false)
                    else
-                     Incident.all
+                     Incident.includes(:category, :staff).all
                    end
+
+      if params[:sort].present? && params[:direction].present?
+        case params[:sort]
+        when 'title'
+          @incidents = @incidents.order("title #{params[:direction]}")
+        when 'occurred_at'
+          @incidents = @incidents.order("occurred_at #{params[:direction]}")
+        when 'category'
+          @incidents = @incidents.joins(:category).order("categories.title #{params[:direction]}")
+        when 'staff'
+          @incidents = @incidents.joins(:staff).order("staffs.name #{params[:direction]}")
+        when 'approved'
+          @incidents = @incidents.order("approved #{params[:direction]}")
+        else
+          Rails.logger.info "Invalid sort parameter: #{params[:sort]}"
+        end
+      end
     end
 
     def show
@@ -47,7 +64,6 @@ module AdminPanel
 
     def approve
       if @incident.update(approved: true)
-        # スタッフに通知を送信
         notification = Notification.new(
           notifiable: @incident.staff,
           message: "あなたの事故事例が承認されました。タイトル: #{@incident.title}",
@@ -67,6 +83,18 @@ module AdminPanel
 
     def reject
       @incident.destroy
+      # 非承認時に通知を送信
+      notification = Notification.new(
+        notifiable: @incident.staff,
+        message: "あなたの事故事例が非承認されました。タイトル: #{@incident.title}",
+        read: false
+      )
+      if notification.save
+        puts "Notification created for #{@incident.staff.email}"
+      else
+        puts "Failed to create notification: #{notification.errors.full_messages.join(", ")}"
+      end
+
       redirect_to admin_panel_incidents_path, alert: '事故事例が非承認され削除されました。'
     end
 

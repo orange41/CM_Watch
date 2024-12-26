@@ -11,10 +11,11 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th>タイトル</th>
-      <th>発生日時</th>
-      <th>カテゴリー</th>
-      <th>状態</th>
+      <th><%= link_to 'タイトル', admin_panel_incidents_path(sort: 'title', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
+      <th><%= link_to '発生日時', admin_panel_incidents_path(sort: 'occurred_at', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
+      <th><%= link_to 'カテゴリー', admin_panel_incidents_path(sort: 'category', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
+      <th><%= link_to '投稿者', admin_panel_incidents_path(sort: 'staff', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
+      <th><%= link_to '状態', admin_panel_incidents_path(sort: 'approved', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
       <th>アクション</th>
     </tr>
   </thead>
@@ -24,6 +25,7 @@
         <td><%= incident.title %></td>
         <td><%= incident.occurred_at %></td>
         <td><%= incident.category.title if incident.category %></td>
+        <td><%= incident.staff.name %></td>
         <td><%= incident.approved ? '承認済み' : '未承認' %></td>
         <td>
           <%= link_to '詳細', admin_panel_incident_path(incident) %>
