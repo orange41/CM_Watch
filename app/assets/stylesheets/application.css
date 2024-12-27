@@ -1,11 +1,12 @@
 body {
-  background-image: image-url('hoge.jpg');
+  background-image: image-url("/hoge.jpg");
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
   margin: 0;
   padding: 0;
   padding-top: 56px; /* ナビゲーションバーの高さに応じて調整 */
 }
+
 
 header {
   text-align: center;
