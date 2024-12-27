@@ -8,15 +8,21 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
-import "jquery";
-import "popper.js";
-import "bootstrap";
-import "../stylesheets/application"; 
+// Import jQuery and Popper.js before Bootstrap
+import $ from 'jquery';
+import Popper from '@popperjs/core';
+import 'bootstrap';
 
+// Import custom stylesheets
+import "../stylesheets/application"; 
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// Make jQuery and Popper.js available globally
+window.$ = $;
+window.Popper = Popper;
 
 document.addEventListener("turbolinks:load", function() {
   const addFieldsButton = document.getElementById('add-incident-fields');
@@ -40,5 +46,3 @@ document.addEventListener("turbolinks:load", function() {
     }
   });
 });
-import $ from 'jquery';
-window.$ = $;
