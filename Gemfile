@@ -44,8 +44,6 @@ end
 gem 'net-smtp'
 gem 'net-pop'
 gem 'net-imap'
-gem 'pry'
 gem 'pry-rails'
-gem 'byebug'
 gem 'pry'
 gem 'pry-byebug'
