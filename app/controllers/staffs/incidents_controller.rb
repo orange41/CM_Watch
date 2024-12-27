@@ -28,6 +28,13 @@ module Staffs
     def create
       @incident = current_staff.incidents.build(incident_params)
       @incident.approved = false # 承認フラグの初期値を設定
+
+      @incident.updates.each do |update|
+        if update.description.blank?
+          update.destroy
+        end
+      end
+
       if @incident.save
         # 管理者に通知を送信
         Admin.find_each do |admin|
@@ -45,17 +52,59 @@ module Staffs
     end
 
     def show
+      @incident = Incident.find(params[:id])
       @comments = @incident.comments.where(approved: true) # 承認済みのコメントのみを取得
       @comment = @incident.comments.build
+    
+      # 元記事とすべての更新分を取得
+      @original_incident = @incident.original_incident || @incident
+      @updates = @original_incident.updates.where(approved: true) # 承認済みの更新分のみを取得
+      Rails.logger.debug "Original Incident: #{@original_incident.inspect}"
+      Rails.logger.debug "Updates: #{@updates.inspect}"
     end
+    
 
     def edit
     end
 
     def update
-      if @incident.update(incident_params)
-        redirect_to staffs_incidents_path, notice: '事故事例が更新されました。'
+      Rails.logger.debug "Update Params: #{incident_params.inspect}"  # デバッグ用ログ
+    
+      if incident_params[:updates_attributes].present?
+        incident_params[:updates_attributes].each do |index, update_params|
+          update_params[:staff_id] = current_staff.id
+          update_params[:approved] = false  # デフォルトの承認フラグを設定
+          Rails.logger.debug "Update Params after setting staff_id and approved: #{update_params.inspect}"
+        end
+      end
+    
+      @incident.assign_attributes(incident_params)
+      Rails.logger.debug "Incident after assign_attributes: #{@incident.inspect}"
+    
+      @incident.updates.each do |update|
+        if update.description.blank?
+          update.destroy
+        else
+          update.staff_id ||= current_staff.id
+          update.approved ||= false
+          update.original_incident_id = @incident.id
+          Rails.logger.debug "Update after manual assignment: #{update.inspect}"
+        end
+      end
+    
+      if @incident.save
+        # 管理者に通知を送信
+        Admin.find_each do |admin|
+          Notification.create(
+            notifiable: admin,
+            message: '新しい事故事例の更新があり、承認が必要です。'
+          )
+        end
+
+        redirect_to staffs_incident_path(@incident), notice: '事故事例が更新され、管理者の承認を待っています。'
       else
+        Rails.logger.error "Incident errors: #{@incident.errors.full_messages.join(", ")}"
+        @incident.updates.each { |update| Rails.logger.error "Update errors: #{update.errors.full_messages.join(", ")}" }
         render :edit
       end
     end
@@ -68,6 +117,11 @@ module Staffs
     def approve
       @incident.update(approved: true)
 
+      @incident.updates.each do |update|
+        update.update(approved: true)
+      end
+
+      # スタッフに通知を送信
       Notification.create(
         notifiable: @incident.staff,
         message: 'あなたの事故事例が承認されました。掲示板に表示されています。'
@@ -83,7 +137,10 @@ module Staffs
     end
 
     def incident_params
-      params.require(:incident).permit(:title, :description, :occurred_at, :category_id)
+      params.require(:incident).permit(
+        :title, :description, :occurred_at, :category_id,
+        updates_attributes: [:id, :title, :description, :occurred_at, :staff_id, :approved]
+      )
     end
   end
 end

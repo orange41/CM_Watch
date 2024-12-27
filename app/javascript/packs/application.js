@@ -17,3 +17,26 @@ import "../stylesheets/application";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+document.addEventListener("turbolinks:load", function() {
+  const addFieldsButton = document.getElementById('add-incident-fields');
+  const incidentFieldsContainer = document.getElementById('incident-fields-container');
+
+  if (addFieldsButton && incidentFieldsContainer) {
+    addFieldsButton.addEventListener('click', function() {
+      const newFields = incidentFieldsContainer.firstElementChild.cloneNode(true);
+      incidentFieldsContainer.appendChild(newFields);
+    });
+  }
+
+  incidentFieldsContainer.addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove-incident-fields')) {
+      const fields = incidentFieldsContainer.getElementsByClassName('incident-fields');
+      if (fields.length > 1) {
+        event.target.closest('.incident-fields').remove();
+      } else {
+        alert('最低一つの事故事例を残してください。');
+      }
+    }
+  });
+});

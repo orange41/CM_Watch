@@ -1,17 +1,29 @@
 <h1>事故事例の詳細</h1>
 
-<p><strong>タイトル:</strong> <%= @incident.title %></p>
-<p><strong>説明:</strong> <%= @incident.description %></p>
-<p><strong>発生日時:</strong> <%= @incident.occurred_at %></p>
-<p><strong>カテゴリー:</strong> <%= @incident.category.title if @incident.category %></p>
-<p><strong>承認ステータス:</strong> <%= @incident.approved ? '承認済み' : '未承認' %></p>
-
-<% unless @incident.approved %>
-  <%= link_to '承認', approve_admin_panel_incident_path(@incident), method: :patch, data: { confirm: 'この事故事例を承認しますか？' } %>
-  <%= link_to '却下', reject_admin_panel_incident_path(@incident), method: :patch, data: { confirm: 'この事故事例を却下しますか？' } %>
+<% if @original_incident %>
+  <h2>元記事</h2>
+  <div class="incident-details">
+    <p><strong>タイトル:</strong> <%= @original_incident.title %></p>
+    <p><strong>説明:</strong> <%= @original_incident.description %></p>
+    <p><strong>発生日時:</strong> <%= @original_incident.occurred_at %></p>
+    <p><strong>カテゴリー:</strong> <%= @original_incident.category.title if @original_incident.category %></p>
+    <p><strong>承認ステータス:</strong> <%= @original_incident.approved ? '承認済み' : '未承認' %></p>
+  </div>
 <% end %>
-<% if current_staff == @incident.staff %>
-  <%= link_to '削除', admin_panel_incident_path(@incident), method: :delete, data: { confirm: 'この事故事例を削除しますか？' } %>
+
+<% if @updates.present? %>
+  <% @updates.each_with_index do |update, index| %>
+    <% if update.approved %> <!-- 承認された更新分のみを表示 -->
+      <h2><%= index == 0 ? "中間報告" : "最終報告" %></h2>
+      <div class="incident-update">
+        <p><strong>タイトル:</strong> <%= update.title %></p>
+        <p><strong>説明:</strong> <%= update.description %></p>
+        <p><strong>発生日時:</strong> <%= update.occurred_at %></p>
+        <p><strong>カテゴリー:</strong> <%= update.category.title if update.category %></p>
+        <p><strong>承認ステータス:</strong> <%= update.approved ? '承認済み' : '未承認' %></p>
+      </div>
+    <% end %>
+  <% end %>
 <% end %>
 
 <h2>コメント一覧</h2>
@@ -24,24 +36,24 @@
     </tr>
   </thead>
   <tbody>
-    <% @comments.each do |comment| %> <!-- 承認済みのコメントのみを表示 -->
+    <% @comments.each do |comment| %>
       <tr>
         <td><%= comment.content %></td>
-        <td><%= comment.staff.name %></td>
+        <td><%= comment.staff.name if comment.staff %></td>
         <td><%= comment.created_at %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= form_with(model: [@incident, Comment.new], url: incident_comments_path(@incident)) do |form| %>
+<%= form_with(model: [ @incident, @comment ], local: true) do |form| %>
   <div class="field">
-    <%= form.label :content, 'コメント内容' %>
     <%= form.text_area :content %>
   </div>
   <div class="actions">
-    <%= form.submit 'コメントを投稿' %>
+    <%= form.submit 'コメントを投稿する' %>
   </div>
 <% end %>
 
+<%= link_to '編集', edit_staffs_incident_path(@incident) %> |
 <%= link_to '一覧に戻る', staffs_incidents_path %>

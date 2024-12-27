@@ -1,23 +1,63 @@
-<!-- app/views/staffs/incidents/edit.html.erb -->
 <h1>事故事例の編集</h1>
 
-<%= form_with model: @incident, url: staffs_incident_path(@incident), local: true do |form| %>
-  <div class="field">
-    <%= form.label :title, 'タイトル' %><br />
-    <%= form.text_field :title, autofocus: true %>
+<%= form_with(model: @incident, url: staffs_incident_path(@incident), local: true) do |form| %>
+  <div id="incident-fields-container">
+    <%= render 'incident_fields', form: form %>
   </div>
 
-  <div class="field">
-    <%= form.label :description, '説明' %><br />
-    <%= form.text_area :description %>
-  </div>
+  <h2>中間報告</h2>
+  <% @incident.updates.build(title: "中間報告") if @incident.updates[0].nil? %>
+  <% @incident.updates.each_with_index do |update, index| %>
+    <% next unless index == 0 %>
+    <div class="update-fields">
+      <%= form.fields_for :updates, update do |update_form| %>
+        <div class="field">
+          <%= update_form.label :title, '中間報告のタイトル' %><br />
+          <%= update_form.text_field :title %>
+        </div>
 
-  <div class="field">
-    <%= form.label :occurred_at, '発生日時' %><br />
-    <%= form.datetime_select :occurred_at %>
+        <div class="field">
+          <%= update_form.label :description, '中間報告の説明' %><br />
+          <%= update_form.text_area :description %>
+        </div>
+
+        <div class="field">
+          <%= update_form.label :occurred_at, '中間報告の発生日時' %><br />
+          <%= update_form.datetime_select :occurred_at %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <h2>最終報告</h2>
+  <% @incident.updates.build(title: "最終報告") if @incident.updates[1].nil? %>
+  <% @incident.updates.each_with_index do |update, index| %>
+    <% next unless index == 1 %>
+    <div class="update-fields">
+      <%= form.fields_for :updates, update do |update_form| %>
+        <div class="field">
+          <%= update_form.label :title, '最終報告のタイトル' %><br />
+          <%= update_form.text_field :title %>
+        </div>
+
+        <div class="field">
+          <%= update_form.label :description, '最終報告の説明' %><br />
+          <%= update_form.text_area :description %>
+        </div>
+
+        <div class="field">
+          <%= update_form.label :occurred_at, '最終報告の発生日時' %><br />
+          <%= update_form.datetime_select :occurred_at %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit '更新', class: 'btn btn-primary' %>
   </div>
 
   <div class="actions">
-    <%= form.submit '更新' %>
+    <%= link_to '一覧に戻る', staffs_incidents_path, class: 'btn btn-secondary mt-2' %>
   </div>
 <% end %>

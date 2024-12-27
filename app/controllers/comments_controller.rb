@@ -22,9 +22,14 @@ class CommentsController < ApplicationController
         end
       end
 
-      redirect_to staffs_incident_path(@incident), notice: 'コメントが作成されました。管理者の承認を待っています。'
+      redirect_to staffs_incidents_path, notice: 'コメントが作成されました。管理者の承認を待っています。'
     else
-      render :new
+      # エラー時には現在のincidentの詳細ページを再度表示
+      @comments = @incident.comments.where(approved: true)
+      @updates = @incident.updates.where(approved: true) # 承認済みの更新分のみを取得
+      @original_incident = @incident.original_incident || @incident
+      @comment = @incident.comments.build
+      render 'staffs/incidents/show'
     end
   end
 

@@ -6,7 +6,9 @@
     <%= submit_tag '検索', name: nil %>
   </div>
 <% end %>
+
 <%= link_to '新しい事故事例を投稿', new_staffs_incident_path %>
+
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -18,18 +20,20 @@
   </thead>
   <tbody>
     <% @incidents.each do |incident| %>
-      <tr>
-        <td><%= incident.title %></td>
-        <td><%= incident.category.title if incident.category %></td>
-        <td><%= incident.staff.name if incident.staff %></td>
-        <td>
-          <%= link_to '詳細', staffs_incident_path(incident) %> |
-          <% if incident.staff == current_staff %>
-            <%= link_to '編集', edit_staffs_incident_path(incident) %> |
-            <%= link_to '削除', staffs_incident_path(incident), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-          <% end %>
-        </td>
-      </tr>
+      <% if incident.approved && incident.original_incident_id.nil? %> <!-- 承認済みの事故事例のみを表示 -->
+        <tr>
+          <td><%= incident.title %></td>
+          <td><%= incident.category.title if incident.category %></td>
+          <td><%= incident.staff.name if incident.staff %></td>
+          <td>
+            <%= link_to '詳細', staffs_incident_path(incident) %> |
+            <% if incident.staff == current_staff %>
+              <%= link_to '編集', edit_staffs_incident_path(incident) %> |
+              <%= link_to '削除', staffs_incident_path(incident), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

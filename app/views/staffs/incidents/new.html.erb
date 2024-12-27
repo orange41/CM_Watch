@@ -21,6 +21,30 @@
     <%= form.collection_select :category_id, Category.all, :id, :title, prompt: "カテゴリを選択" %>
   </div>
 
+  <% ["中間報告", "最終報告"].each do |report_type| %>
+    <div class="field">
+      <%= form.fields_for :updates, @incident.updates.build(title: "#{report_type}", description: "", occurred_at: nil) do |update_form| %>
+        <div class="update-fields">
+          <h2><%= report_type %></h2>
+          <div class="field">
+            <%= update_form.label :title, "#{report_type}のタイトル" %><br />
+            <%= update_form.text_field :title %>
+          </div>
+
+          <div class="field">
+            <%= update_form.label :description, "#{report_type}の説明" %><br />
+            <%= update_form.text_area :description %>
+          </div>
+
+          <div class="field">
+            <%= update_form.label :occurred_at, "#{report_type}の発生日時" %><br />
+            <%= update_form.datetime_select :occurred_at %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= form.submit '作成' %>
   </div>
