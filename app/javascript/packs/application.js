@@ -40,3 +40,5 @@ document.addEventListener("turbolinks:load", function() {
     }
   });
 });
+import $ from 'jquery';
+window.$ = $;
