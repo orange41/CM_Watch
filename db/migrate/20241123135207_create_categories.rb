@@ -7,7 +7,7 @@ class CreateCategories < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_column :incidents, :category_id, :integer
+    add_column :incidents, :category_id, :bigint
     add_foreign_key :incidents, :categories
   end
 end
