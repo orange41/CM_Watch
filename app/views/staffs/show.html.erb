@@ -17,8 +17,12 @@
     <div class="mb-5 mt-auto">
       <h2 class="text-center">最新の通知</h2>
       <ul class="list-unstyled text-center">
-        <% @notifications.each do |notification| %>
-          <li><%= notification.message %> (<%= notification.created_at.strftime("%Y-%m-%d %H:%M") %>)</li>
+        <% if @notifications.present? %>
+          <% @notifications.each do |notification| %>
+            <li><%= notification.message %> (<%= notification.created_at.strftime("%Y-%m-%d %H:%M") %>)</li>
+          <% end %>
+        <% else %>
+          <li>通知はありません</li>
         <% end %>
       </ul>
     </div>
