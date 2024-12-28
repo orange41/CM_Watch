@@ -1,6 +1,6 @@
 class StaffsController < ApplicationController
   before_action :authenticate_staff!, except: [:index]
-  before_action :authenticate_admin!, only: [:index] # 管理者がアクセスできるようにする
+  before_action :authenticate_admin!, only: [:index]
   before_action :set_staff, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -16,7 +16,7 @@ class StaffsController < ApplicationController
 
   def update
     if @staff.update(staff_params)
-      bypass_sign_in(@staff) # パスワード更新後にセッションを再設定
+      bypass_sign_in(@staff)
       redirect_to @staff, notice: 'プロフィールが更新されました。'
     else
       render :edit
