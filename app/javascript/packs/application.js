@@ -9,7 +9,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
 // Import jQuery and Popper.js before Bootstrap
-import $ from 'jquery';
+require('jquery')
 import 'popper.js';
 import 'bootstrap';
 
@@ -21,8 +21,7 @@ Turbolinks.start()
 ActiveStorage.start()
 
 // Make jQuery and Popper.js available globally
-window.$ = $;
-
+window.$ = window.jQuery = require('jquery');
 
 document.addEventListener("turbolinks:load", function() {
   const addFieldsButton = document.getElementById('add-incident-fields');
