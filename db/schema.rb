@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2024_12_27_045646) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "approved"
+    t.boolean "approved", default: false
     t.index ["incident_id"], name: "index_comments_on_incident_id"
     t.index ["staff_id"], name: "index_comments_on_staff_id"
   end

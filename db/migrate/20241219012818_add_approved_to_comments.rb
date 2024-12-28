@@ -1,5 +1,5 @@
-class AddApprovedToIncidents < ActiveRecord::Migration[6.1]
+class AddApprovedToComments < ActiveRecord::Migration[6.1]
   def change
-    add_column :incidents, :approved, :boolean, default: false
+    add_column :comments, :approved, :boolean, default: false
   end
 end
