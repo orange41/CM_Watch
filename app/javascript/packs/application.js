@@ -10,7 +10,7 @@ import "channels"
 
 // Import jQuery and Popper.js before Bootstrap
 import $ from 'jquery';
-import Popper from '@popperjs/core';
+import 'popper.js';
 import 'bootstrap';
 
 // Import custom stylesheets
@@ -22,7 +22,7 @@ ActiveStorage.start()
 
 // Make jQuery and Popper.js available globally
 window.$ = $;
-window.Popper = Popper;
+
 
 document.addEventListener("turbolinks:load", function() {
   const addFieldsButton = document.getElementById('add-incident-fields');
