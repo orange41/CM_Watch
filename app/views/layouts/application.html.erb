@@ -143,9 +143,9 @@
                     <span class="navbar-toggler-icon"></span> メニュー
                 </button>
             </div>
-            <nav class="col-md-2 bg-light sidebar collapse" id="sidebarNav">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column mt-2">
+            <nav class="col-md-2 bg-light custom-sidebar collapse" id="sidebarNav">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column mt-2">        
                         <% if admin_signed_in? %>
                             <li class="nav-item">
                                 <%= link_to admin_panel_admin_dashboard_path, class: "nav-link" do %>

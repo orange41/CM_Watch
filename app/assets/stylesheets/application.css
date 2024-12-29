@@ -101,10 +101,10 @@ button:hover {
     width: 10%; /* 横幅を1/10に設定 */
 }
 
-.sidebar.collapse {
+.custom-sidebar {
   position: fixed;
   min-height: 100vh; /* 高さを画面全体に設定 */
-  width: 20%; /* 横幅を1/5に設定 */
+  width: 20%; /* PC画面での横幅を1/5に設定 */
   top: 56px; /* ナビゲーションバーの高さに合わせて調整 */
   left: 0;
   z-index: 1000; /* サイドバーを前面に表示 */
@@ -113,4 +113,10 @@ button:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加 */
   overflow-y: auto; /* 縦方向のスクロールを許可 */
   -webkit-overflow-scrolling: touch; /* スムーズスクロールを有効にする */
+}
+
+@media (max-width: 768px) {
+  .custom-sidebar {
+      width: 80%; /* スマホ画面での横幅を調整 */
+  }
 }
