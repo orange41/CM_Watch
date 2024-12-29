@@ -103,7 +103,7 @@ button:hover {
 
 .sidebar.collapse {
   position: fixed;
-  height: 100vh; /* 高さを画面全体に設定 */
+  min-height: 100vh; /* 高さを画面全体に設定 */
   width: 20%; /* 横幅を1/5に設定 */
   top: 56px; /* ナビゲーションバーの高さに合わせて調整 */
   left: 0;
