@@ -5,6 +5,7 @@
     <title>CM Watch</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/6a081c7be2.js" crossorigin="anonymous"></script>
@@ -48,7 +49,10 @@
 <!-- ナビゲーションバー -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">CM Watch</a>
-    <div class="collapse navbar-collapse">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <% if admin_signed_in? %>
                 <li class="nav-item">
@@ -109,7 +113,7 @@
                     <%= link_to notifications_path, class: "nav-link" do %>
                         <i class="fas fa-bell"></i>
                         <% if current_admin.notifications.unread.count > 0 %>
-                            <span class="badge">NEW!</span>
+                            <span class="badge badge-danger">NEW!</span>
                         <% end %>
                     <% end %>
                 </li>
@@ -118,7 +122,7 @@
                     <%= link_to notifications_path, class: "nav-link" do %>
                         <i class="fas fa-bell"></i>
                         <% if current_staff.notifications.unread.count > 0 %>
-                            <span class="badge">NEW!</span>
+                            <span class="badge badge-danger">NEW!</span>
                         <% end %>
                     <% end %>
                 </li>
@@ -129,7 +133,8 @@
 
 
 
-    <div class="container-fluid">
+
+<div class="container-fluid">
     <div class="row">
         <% unless current_page?(root_path) || current_page?(new_staff_session_path) || current_page?(new_admin_session_path) || current_page?(new_staff_registration_path) || current_page?(new_admin_registration_path) %>
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -137,65 +142,65 @@
                     <ul class="nav flex-column">
                         <% if admin_signed_in? %>
                             <li class="nav-item">
-                            <%= link_to admin_panel_admin_dashboard_path, class: "nav-link" do %>
-                                <i class="fa-solid fa-house"></i>ダッシュボード
-                            <% end %>
+                                <%= link_to admin_panel_admin_dashboard_path, class: "nav-link" do %>
+                                    <i class="fa-solid fa-house"></i> ダッシュボード
+                                <% end %>
                             </li>
                             <li class="nav-item">
-                            <%= link_to admin_panel_staffs_path, class: "nav-link" do %>
-                                <i class="fa-solid fa-people-group"></i>スタッフ一覧
-                            <% end %>
+                                <%= link_to admin_panel_staffs_path, class: "nav-link" do %>
+                                    <i class="fa-solid fa-people-group"></i> スタッフ一覧
+                                <% end %>
                             </li>
                             <li class="nav-item">
-                            <%= link_to new_admin_panel_staff_path, class: "nav-link" do %>
-                                <i class="fa-solid fa-plus"></i>新しいスタッフを登録
-                            <% end %>
+                                <%= link_to new_admin_panel_staff_path, class: "nav-link" do %>
+                                    <i class="fa-solid fa-plus"></i> 新しいスタッフを登録
+                                <% end %>
                             </li>
                             <li class="nav-item">
-                            <%= link_to admin_panel_incidents_path, class: "nav-link" do %>
-                                <i class="fa-solid fa-person-falling-burst"></i>事故事例管理
-                            <% end %>
+                                <%= link_to admin_panel_incidents_path, class: "nav-link" do %>
+                                    <i class="fa-solid fa-person-falling-burst"></i> 事故事例管理
+                                <% end %>
                             </li>
                             <li class="nav-item">
-                            <%= link_to categories_path, class: "nav-link" do %>
-                                <i class="fa-solid fa-layer-group"></i>カテゴリー管理
-                            <% end %>
+                                <%= link_to categories_path, class: "nav-link" do %>
+                                    <i class="fa-solid fa-layer-group"></i> カテゴリー管理
+                                <% end %>
                             </li>
                             <li class="nav-item">
-                            <%= link_to admin_panel_comments_path, class: "nav-link" do %>
-                                <i class="fa-solid fa-comment"></i>コメント管理
-                            <% end %>
+                                <%= link_to admin_panel_comments_path, class: "nav-link" do %>
+                                    <i class="fa-solid fa-comment"></i> コメント管理
+                                <% end %>
                             </li>
                             <li class="nav-item">
-                            <%= link_to admin_panel_edit_admin_dashboard_path, class: "nav-link" do %>
-                                <i class="fa-solid fa-id-card"></i>プロフィール編集
-                            <% end %>
+                                <%= link_to admin_panel_edit_admin_dashboard_path, class: "nav-link" do %>
+                                    <i class="fa-solid fa-id-card"></i> プロフィール編集
+                                <% end %>
                             </li>
                             <li class="nav-item">
-                            <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link" do %>
-                                <i class="fa-solid fa-right-from-bracket"></i>ログアウト
-                            <% end %>
+                                <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link" do %>
+                                    <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                                <% end %>
                             </li>
                         <% elsif staff_signed_in? %>
                             <li class="nav-item">
-                            <%= link_to staffs_dashboard_path, class: "nav-link" do %>
-                                <i class="fa-solid fa-house"></i>ダッシュボード
-                            <% end %>
+                                <%= link_to staffs_dashboard_path, class: "nav-link" do %>
+                                    <i class="fa-solid fa-house"></i> ダッシュボード
+                                <% end %>
                             </li>
                             <li class="nav-item">
-                            <%= link_to staffs_incidents_path, class: "nav-link" do %>
-                                <i class="fa-solid fa-person-falling-burst"></i>事故事例
-                            <% end %>
+                                <%= link_to staffs_incidents_path, class: "nav-link" do %>
+                                    <i class="fa-solid fa-person-falling-burst"></i> 事故事例
+                                <% end %>
                             </li>
                             <li class="nav-item">
-                            <%= link_to edit_staff_path(current_staff), class: "nav-link" do %>
-                                <i class="fa-solid fa-id-card"></i>プロフィール編集
-                            <% end %>
+                                <%= link_to edit_staff_path(current_staff), class: "nav-link" do %>
+                                    <i class="fa-solid fa-id-card"></i> プロフィール編集
+                                <% end %>
                             </li>
                             <li class="nav-item">
-                            <%= link_to destroy_staff_session_path, method: :delete, class: "nav-link" do %>
-                                <i class="fa-solid fa-right-from-bracket"></i>ログアウト
-                            <% end %>                                
+                                <%= link_to destroy_staff_session_path, method: :delete, class: "nav-link" do %>
+                                    <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                                <% end %>
                             </li>
                         <% else %>
                             <li class="nav-item"><%= link_to 'ログイン', new_staff_session_path, class: "nav-link" %></li>
@@ -205,33 +210,36 @@
             </nav>
         <% end %>
 
-        <main role="main" class="<%= current_page?(root_path) || current_page?(new_staff_session_path) || current_page?(new_admin_session_path) || current_page?(new_staff_registration_path) || current_page?(new_admin_registration_path) ? 'col-md-12' : 'col-md-9 ml-sm-auto col-lg-10 px-4' %>">
-            <% if current_page?(root_path) %>
-                <div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 100px);">
-                    <section class="text-center">
-                        <button class="btn btn-primary btn-lg mb-3" onclick="location.href='<%= new_staff_session_path %>'">一般ユーザー ログイン</button>
-                        <button class="btn btn-secondary btn-lg mb-3" onclick="location.href='<%= new_admin_session_path %>'">管理者 ログイン</button>
-                    </section>
-                </div>
-            <% elsif current_page?(about_path) %>
-                <div class="center-content">
-                    <section class="text-center">
-                        <h1>About Us</h1>
-                        <p>Welcome to CM Watch. We are dedicated to providing...</p>
-                        <!-- 時間があれば情報や画像などを追加 -->
-                    </section>
-                </div>
-            <% else %>
-                <%= yield %>
-            <% end %>
-        </main>
-    </div>
-</div>
 
-<footer>
-    <p>山田ファシリティーサービス株式会社 | XX-XXXX-XXXX</p>
+
+<main role="main" class="<%= current_page?(root_path) || current_page?(new_staff_session_path) || current_page?(new_admin_session_path) || current_page?(new_staff_registration_path) || current_page?(new_admin_registration_path) ? 'col-md-12' : 'col-md-9 ml-sm-auto col-lg-10 px-4' %>">
+    <% if current_page?(root_path) %>
+        <div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 100px);">
+            <section class="text-center">
+                <button class="btn btn-primary btn-lg mb-3" onclick="location.href='<%= new_staff_session_path %>'">一般ユーザー ログイン</button>
+                <button class="btn btn-secondary btn-lg mb-3" onclick="location.href='<%= new_admin_session_path %>'">管理者 ログイン</button>
+            </section>
+        </div>
+    <% elsif current_page?(about_path) %>
+        <div class="center-content">
+            <section class="text-center">
+                <h1>About Us</h1>
+                <p>Welcome to CM Watch. We are dedicated to providing...</p>
+                <!-- 時間があれば情報や画像などを追加 -->
+            </section>
+        </div>
+    <% else %>
+        <%= yield %>
+    <% end %>
+</main>
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">山田ファシリティーサービス株式会社 | XX-XXXX-XXXX</span>
+    </div>
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
