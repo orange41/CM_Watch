@@ -102,14 +102,15 @@ button:hover {
 }
 
 .sidebar.collapse {
-    position: fixed;
-    height: 100vh; /* 高さを画面全体に設定 */
-    width: 20%; /* 横幅を1/5に設定 */
-    top: 56px; /* ナビゲーションバーの高さに合わせて調整 */
-    left: 0;
-    z-index: 1000; /* サイドバーを前面に表示 */
-    background-color: #fff; /* 背景色 */
-    border: 1px solid #ddd; /* 境界線 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加 */
-    overflow-y: auto; /* 縦方向のスクロールを許可 */
+  position: fixed;
+  height: 100vh; /* 高さを画面全体に設定 */
+  width: 20%; /* 横幅を1/5に設定 */
+  top: 56px; /* ナビゲーションバーの高さに合わせて調整 */
+  left: 0;
+  z-index: 1000; /* サイドバーを前面に表示 */
+  background-color: #fff; /* 背景色 */
+  border: 1px solid #ddd; /* 境界線 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加 */
+  overflow-y: auto; /* 縦方向のスクロールを許可 */
+  -webkit-overflow-scrolling: touch; /* スムーズスクロールを有効にする */
 }
