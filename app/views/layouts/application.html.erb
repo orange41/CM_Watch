@@ -48,12 +48,14 @@
 <body>
 <!-- ナビゲーションバー -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">CM Watch</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
+    <div class="container position-relative">
+        <a class="navbar-brand" href="/" style="position: absolute; left: 50%; transform: translateX(-50%);">CM Watch</a>
+        <button class="navbar-toggler position-absolute" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="right: 0;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
             <% if admin_signed_in? %>
                 <li class="nav-item">
                     <%= link_to admin_panel_admin_dashboard_path, class: "nav-link" do %>
@@ -130,16 +132,20 @@
         </ul>
     </div>
 </nav>
-
-
+</body>
 
 
 <div class="container-fluid">
     <div class="row">
         <% unless current_page?(root_path) || current_page?(new_staff_session_path) || current_page?(new_admin_session_path) || current_page?(new_staff_registration_path) || current_page?(new_admin_registration_path) %>
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="col-12">
+                <button class="navbar-toggler d-block" type="button" data-toggle="collapse" data-target="#sidebarNav" aria-controls="sidebarNav" aria-expanded="false" aria-label="Toggle navigation" style="width: 10%;">
+                    <span class="navbar-toggler-icon"></span> メニュー
+                </button>
+            </div>
+            <nav class="col-md-2 bg-light sidebar collapse" id="sidebarNav">
                 <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
+                    <ul class="nav flex-column mt-2">
                         <% if admin_signed_in? %>
                             <li class="nav-item">
                                 <%= link_to admin_panel_admin_dashboard_path, class: "nav-link" do %>
@@ -181,6 +187,11 @@
                                     <i class="fa-solid fa-right-from-bracket"></i> ログアウト
                                 <% end %>
                             </li>
+                            <li class="nav-item">
+                                <button class="nav-link btn btn-light w-100 text-left" type="button" data-toggle="collapse" data-target="#sidebarNav" aria-controls="sidebarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                    <i class="fa-solid fa-xmark"></i> メニューを閉じる
+                                </button>
+                            </li>
                         <% elsif staff_signed_in? %>
                             <li class="nav-item">
                                 <%= link_to staffs_dashboard_path, class: "nav-link" do %>
@@ -202,6 +213,11 @@
                                     <i class="fa-solid fa-right-from-bracket"></i> ログアウト
                                 <% end %>
                             </li>
+                            <li class="nav-item">
+                                <button class="nav-link btn btn-light w-100 text-left" type="button" data-toggle="collapse" data-target="#sidebarNav" aria-controls="sidebarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                    <i class="fa-solid fa-xmark"></i> メニューを閉じる
+                                </button>
+                            </li>
                         <% else %>
                             <li class="nav-item"><%= link_to 'ログイン', new_staff_session_path, class: "nav-link" %></li>
                         <% end %>
@@ -209,10 +225,36 @@
                 </div>
             </nav>
         <% end %>
+    </div>
+</div>
+<style>
+/* ボタンスタイルの調整 */
+.navbar-toggler {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: #007bff; /* 背景色 */
+    color: white; /* 文字色 */
+    border-radius: 5px; /* 角を丸める */
+    padding: 5px 10px; /* パディングを調整してサイズを小さく */
+    font-size: 0.75em; /* フォントサイズを小さく */
+    width: 10%; /* 横幅を1/10に設定 */
+}
+
+/* サイドバーの横幅を1/5に設定 */
+.sidebar.collapse {
+    position: fixed;
+    width: 20%; /* 横幅を1/5に設定 */
+    top: 56px; /* ナビゲーションバーの高さに合わせて調整 */
+    left: 0;
+    z-index: 1000; /* サイドバーを前面に表示 */
+    background-color: #fff; /* 背景色 */
+    border: 1px solid #ddd; /* 境界線 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加 */
+}
+</style>
 
 
-
-<main role="main" class="<%= current_page?(root_path) || current_page?(new_staff_session_path) || current_page?(new_admin_session_path) || current_page?(new_staff_registration_path) || current_page?(new_admin_registration_path) ? 'col-md-12' : 'col-md-9 ml-sm-auto col-lg-10 px-4' %>">
+<main role="main" class="<%= current_page?(root_path) || current_page?(new_staff_session_path) || current_page?(new_admin_session_path) || current_page?(new_staff_registration_path) || current_page?(new_admin_registration_path) ? 'col-md-12' : 'col-md-8 offset-md-2 px-4' %>">
     <% if current_page?(root_path) %>
         <div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 100px);">
             <section class="text-center">
@@ -233,11 +275,13 @@
     <% end %>
 </main>
 
-<footer class="footer mt-auto py-3 bg-light">
-    <div class="container">
+<footer class="footer mt-auto py-3 bg-light" style="position: fixed; width: 100%; bottom: 0; left: 0; right: 0; z-index: 999;">
+    <div class="container-fluid text-center">
         <span class="text-muted">山田ファシリティーサービス株式会社 | XX-XXXX-XXXX</span>
     </div>
 </footer>
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
