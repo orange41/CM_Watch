@@ -1,3 +1,21 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  width: 100%;
+  background-color: #f8f9fa; /* フッターの背景色 */
+  text-align: center;
+  padding: 1rem 0; /* 上下のパディング */
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
@@ -34,12 +52,6 @@ header {
   align-items: center;
   height: calc(100vh - 112px); /* ナビゲーションバーとフッターを除いた高さ */
   margin-top: 56px; /* ナビゲーションバーの高さを調整 */
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #f8f9fa;
 }
 
 button {
@@ -91,14 +103,14 @@ button:hover {
 }
 
 .navbar-toggler {
-    margin-bottom: 10px;
-    margin-top: 10px;
-    background-color: #007bff; /* 背景色 */
-    color: white; /* 文字色 */
-    border-radius: 5px; /* 角を丸める */
-    padding: 5px 10px; /* パディングを調整してサイズを小さく */
-    font-size: 0.75em; /* フォントサイズを小さく */
-    width: 10%; /* 横幅を1/10に設定 */
+  margin-bottom: 10px;
+  margin-top: 10px;
+  background-color: #007bff; /* 背景色 */
+  color: white; /* 文字色 */
+  border-radius: 5px; /* 角を丸める */
+  padding: 5px 10px; /* パディングを調整してサイズを小さく */
+  font-size: 0.75em; /* フォントサイズを小さく */
+  width: 10%; /* 横幅を1/10に設定 */
 }
 
 .custom-sidebar {
