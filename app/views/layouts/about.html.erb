@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>About Us</title>
-    <link rel="stylesheet" href="styles.css">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <style>
@@ -50,10 +51,11 @@
     <main class="main-content center-content">
         <div>
             <h1>ハインリッヒの法則</h1>
-            <p><p>1件の重大事故に対して、29件の軽微な事故と300件のヒヤリハット（事故には至らないが危険な状況）が存在するという</p><br>
+            <p>1件の重大事故に対して、29件の軽微な事故と300件のヒヤリハット（事故には至らないが危険な状況）が存在するという</p>
+            <br>
             普段の日常業務から年間1回程度の特殊な作業内で気づいた異常、その場でのミスの対応方法はあるか<br>
             皆で考え共有しましょう。<br>
-            くれぐれも起因者を責めたりすることのないように。あくまでもヒヤリハットの共有が目的です！</p>
+            くれぐれも起因者を責めたりすることのないように。あくまでもヒヤリハットの共有が目的です！
             <!-- 画像など時間あれば追加 -->
         </div>
     </main>
