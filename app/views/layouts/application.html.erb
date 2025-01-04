@@ -24,9 +24,9 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          height: calc(100vh - 200px); /* ヘッダーとフッターを引いた高さ */
+          height: calc(100vh - 200px); 
           text-align: center;
-          white-space: nowrap; /* テキストを一列に表示する */
+          white-space: nowrap; 
       }
       .center-content h1,
       .center-content p {
@@ -40,7 +40,7 @@
           text-align: center;
       }
       .custom-title {
-          white-space: nowrap; /* テキストを一列に表示する */
+          white-space: nowrap; 
       }
     </style>
 </head>
@@ -136,6 +136,7 @@
 
 
 <div class="container-fluid">
+<!--サイドバー -->
     <div class="row">
         <% unless current_page?(root_path) || current_page?(new_staff_session_path) || current_page?(new_admin_session_path) || current_page?(new_staff_registration_path) || current_page?(new_admin_registration_path) %>
             <div class="col-12">
@@ -228,34 +229,35 @@
     </div>
 </div>
 <style>
-/* ボタンスタイルの調整 */
+
 .navbar-toggler {
     margin-bottom: 10px;
     margin-top: 10px;
-    background-color: #007bff; /* 背景色 */
-    color: white; /* 文字色 */
-    border-radius: 5px; /* 角を丸める */
-    padding: 5px 10px; /* パディングを調整してサイズを小さく */
-    font-size: 0.75em; /* フォントサイズを小さく */
-    width: 10%; /* 横幅を1/10に設定 */
+    background-color: #007bff; 
+    color: white; 
+    border-radius: 5px; 
+    padding: 5px 10px; 
+    font-size: 0.75em; 
+    width: 10%; 
 }
 
-/* サイドバーの横幅を1/5に設定 */
+
 .sidebar.collapse {
     position: fixed;
-    width: 20%; /* 横幅を1/5に設定 */
-    top: 56px; /* ナビゲーションバーの高さに合わせて調整 */
+    width: 20%; 
+    top: 56px; 
     left: 0;
-    z-index: 1000; /* サイドバーを前面に表示 */
-    background-color: #fff; /* 背景色 */
-    border: 1px solid #ddd; /* 境界線 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加 */
+    z-index: 1000; 
+    background-color: #fff; 
+    border: 1px solid #ddd; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 </style>
 
 
 <main role="main" class="<%= current_page?(root_path) || current_page?(new_staff_session_path) || current_page?(new_admin_session_path) || current_page?(new_staff_registration_path) || current_page?(new_admin_registration_path) ? 'col-md-12' : 'col-md-8 offset-md-2 px-4' %>">
- <% if current_page?(root_path) %>
+<!-- ほぼabout用 -->
+<% if current_page?(root_path) %>
   <div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 100px);">
    <section class="text-center">
     <button class="btn btn-primary btn-lg mb-3" onclick="location.href='<%= new_staff_session_path %>'">一般ユーザー ログイン</button>
