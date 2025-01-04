@@ -19,7 +19,7 @@ class AdminPanel::CommentsController < ApplicationController
         incident = @comment.incident
         puts "Incident: #{incident.title}" # デバッグメッセージ
 
-        # スタッフに通知を送信
+        # スタッフに通知
         notification = Notification.new(
           notifiable: staff,
           message: "あなたのコメントが承認されました。事故事例: #{incident.title}, コメント内容: #{@comment.content}",
@@ -51,11 +51,11 @@ class AdminPanel::CommentsController < ApplicationController
 
       begin
         staff = @comment.staff
-        puts "Staff: #{staff.email}" # デバッグメッセージ
+        puts "Staff: #{staff.email}" 
         incident = @comment.incident
-        puts "Incident: #{incident.title}" # デバッグメッセージ
+        puts "Incident: #{incident.title}" 
 
-        # スタッフに通知を送信
+        # スタッフに通知
         notification = Notification.new(
           notifiable: staff,
           message: "あなたのコメントが非承認されました。事故事例: #{incident.title}, コメント内容: #{@comment.content}",

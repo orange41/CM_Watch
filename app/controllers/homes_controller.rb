@@ -3,11 +3,11 @@ class HomesController < ApplicationController
   before_action :authenticate_admin!, only: [:admin_dashboard]
   
   def index
-    # トップページの表示
+    # トップページ
   end
 
   def about
-    # Aboutページの表示
+    # Aboutページ
   end
 
   def user_dashboard

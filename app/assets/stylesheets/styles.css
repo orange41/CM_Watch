@@ -67,7 +67,7 @@ nav ul li a:hover {
 }
 
 .container.homepage .content {
-  margin-left: 0; /* トップページではサイドバーのスペースを考慮しない */
+  margin-left: 0; 
 }
 
 .sidebar {
@@ -109,5 +109,5 @@ nav ul li a:hover {
 }
 
 .container.homepage .content {
-  margin-left: 0; /* トップページではサイドバーのスペースを考慮しない */
+  margin-left: 0; 
 }

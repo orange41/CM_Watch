@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
     elsif staff_signed_in?
       @notifications = current_staff.notifications.unread
     else
-      @notifications = [] # 未サインイン状態の場合、空の配列を返す
+      @notifications = [] 
     end
   end
 

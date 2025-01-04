@@ -27,7 +27,7 @@ module Staffs
 
     def create
       @incident = current_staff.incidents.build(incident_params)
-      @incident.approved = false # 承認フラグの初期値を設定
+      @incident.approved = false # 承認フラグの初期値はfalse
 
       @incident.updates.each do |update|
         if update.description.blank?
@@ -36,7 +36,7 @@ module Staffs
       end
 
       if @incident.save
-        # 管理者に通知を送信
+        # 管理者に通知
         Admin.find_each do |admin|
           Notification.create(
             notifiable: admin,
@@ -46,14 +46,14 @@ module Staffs
 
         redirect_to staffs_incidents_path, notice: '事故事例が作成され、管理者の承認を待っています。'
       else
-        Rails.logger.error @incident.errors.full_messages.join(", ") # エラーメッセージをログに出力
+        Rails.logger.error @incident.errors.full_messages.join(", ") # デバッグ
         render :new
       end
     end
 
     def show
       @incident = Incident.find(params[:id])
-      @comments = @incident.comments.where(approved: true) # 承認済みのコメントのみを取得
+      @comments = @incident.comments.where(approved: true) 
       @comment = @incident.comments.build
     
       # 元記事とすべての更新分を取得
@@ -68,12 +68,12 @@ module Staffs
     end
 
     def update
-      Rails.logger.debug "Update Params: #{incident_params.inspect}"  # デバッグ用ログ
+      Rails.logger.debug "Update Params: #{incident_params.inspect}"  # デバッグ
     
       if incident_params[:updates_attributes].present?
         incident_params[:updates_attributes].each do |index, update_params|
           update_params[:staff_id] = current_staff.id
-          update_params[:approved] = false  # デフォルトの承認フラグを設定
+          update_params[:approved] = false  # デフォはfalse
           Rails.logger.debug "Update Params after setting staff_id and approved: #{update_params.inspect}"
         end
       end
@@ -93,7 +93,7 @@ module Staffs
       end
     
       if @incident.save
-        # 管理者に通知を送信
+        # 管理者へえ通知
         Admin.find_each do |admin|
           Notification.create(
             notifiable: admin,
@@ -121,7 +121,7 @@ module Staffs
         update.update(approved: true)
       end
 
-      # スタッフに通知を送信
+      # スタッフに通知
       Notification.create(
         notifiable: @incident.staff,
         message: 'あなたの事故事例が承認されました。掲示板に表示されています。'

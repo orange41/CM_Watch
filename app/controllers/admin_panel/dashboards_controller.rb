@@ -19,7 +19,7 @@ module AdminPanel
       if @admin.update(admin_params)
         redirect_to admin_panel_admin_dashboard_path, notice: 'プロフィールが更新されました。'
       else
-        flash.now[:alert] = @admin.errors.full_messages.join(', ') # バリデーションエラーをフラッシュメッセージで表示
+        flash.now[:alert] = @admin.errors.full_messages.join(', ') # バリデーションエラーのフラッシュメッセージ
         render :edit
       end
     end

@@ -18,7 +18,6 @@ class Admins::SessionsController < Devise::SessionsController
     if params[:admin].present?
       params.require(:admin).permit(:employee_number, :password)
     else
-      # パラメータがない場合の処理
       {}
     end
   end

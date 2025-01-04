@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     @comment.approved = false
 
     if @comment.save
-      # 管理者に通知を送信
+      # 管理者通知用
       Admin.find_each do |admin|
         notification = Notification.new(
           notifiable: admin,
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
     else
       # エラー時には現在のincidentの詳細ページを再度表示
       @comments = @incident.comments.where(approved: true)
-      @updates = @incident.updates.where(approved: true) # 承認済みの更新分のみを取得
+      @updates = @incident.updates.where(approved: true) # 承認済み更新分のみ！
       @original_incident = @incident.original_incident || @incident
       @comment = @incident.comments.build
       render 'staffs/incidents/show'
@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.update(approved: true)
 
-    # スタッフに通知を送信
+    # スタッフに通知
     notification = Notification.new(
       notifiable: @comment.staff,
       message: "あなたのコメントが承認されました。事故事例: #{@comment.incident.title}, コメント内容: #{@comment.content}",

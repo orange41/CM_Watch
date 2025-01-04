@@ -38,12 +38,12 @@ header {
   top: 56px; /* ナビゲーションバーの高さ */
   bottom: 0;
   left: 0;
-  width: 250px; /* サイドバーの幅を調整 */
-  height: calc(100vh - 56px); /* サイドバーの高さを画面全体に調整 */
+  width: 250px; /* サイドバーの幅 */
+  height: calc(100vh - 56px); /* サイドバーの高さを画面全体に */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
   background-color: #f8f9fa; /* サイドバーの背景色 */
-  padding-top: 0; /* サイドバー内の余白をリセット */
-  margin-top: -53px; /* 余白を微調整して重ならないようにする */
+  padding-top: 0; /* サイドバー内の余白0 */
+  margin-top: -53px; /* 余白を調整.重ならないように */
 }
 
 .main-content {
@@ -51,7 +51,7 @@ header {
   justify-content: center;
   align-items: center;
   height: calc(100vh - 112px); /* ナビゲーションバーとフッターを除いた高さ */
-  margin-top: 56px; /* ナビゲーションバーの高さを調整 */
+  margin-top: 56px; /* ナビゲーションバーの高さ */
 }
 
 button {
@@ -76,7 +76,7 @@ button:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* セクションの高さを全高に設定 */
+  height: 100vh; /* セクションの高さの調整 */
 }
 
 .button-block {
@@ -108,23 +108,23 @@ button:hover {
   background-color: #007bff; /* 背景色 */
   color: white; /* 文字色 */
   border-radius: 5px; /* 角を丸める */
-  padding: 5px 10px; /* パディングを調整してサイズを小さく */
+  padding: 5px 10px; /* パディングを調整、 */
   font-size: 0.75em; /* フォントサイズを小さく */
-  width: 10%; /* 横幅を1/10に設定 */
+  width: 10%; /* 横幅の設定 */
 }
 
 .custom-sidebar {
   position: fixed;
-  min-height: 100vh; /* 高さを画面全体に設定 */
-  width: 20%; /* PC画面での横幅を1/5に設定 */
+  min-height: 100vh; /* 高さを画面全体に */
+  width: 20%; /* PC画面での横幅を1/5 */
   top: 56px; /* ナビゲーションバーの高さに合わせて調整 */
   left: 0;
-  z-index: 1000; /* サイドバーを前面に表示 */
+  z-index: 1000; /* サイドバーを前面に */
   background-color: #fff; /* 背景色 */
   border: 1px solid #ddd; /* 境界線 */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 影を追加 */
   overflow-y: auto; /* 縦方向のスクロールを許可 */
-  -webkit-overflow-scrolling: touch; /* スムーズスクロールを有効にする */
+  -webkit-overflow-scrolling: touch; /* スムーズスクロールを有効 */
 }
 
 @media (max-width: 768px) {

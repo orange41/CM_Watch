@@ -40,7 +40,7 @@ document.addEventListener("turbolinks:load", function() {
       if (fields.length > 1) {
         event.target.closest('.incident-fields').remove();
       } else {
-        alert('最低一つの事故事例を残してください。');
+        alert('最低一つの事故事例を残してください。'); 
       }
     }
   });

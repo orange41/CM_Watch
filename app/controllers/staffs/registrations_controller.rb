@@ -11,7 +11,7 @@ class Staffs::RegistrationsController < Devise::RegistrationsController
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
-        sign_in(resource) # 新規登録後にサインインさせる
+        sign_in(resource) # 新規登録後にサインイン！
         Rails.logger.debug "Staff signed up successfully: #{resource.inspect}"
         respond_with resource, location: after_sign_up_path_for(resource)
       else
@@ -37,7 +37,7 @@ class Staffs::RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     Rails.logger.debug "Redirecting after update to: #{staff_path(resource)}"
-    staff_path(resource) # 更新後にスタッフのプロフィールページにリダイレクト
+    staff_path(resource) 
   end
 
   def configure_permitted_parameters

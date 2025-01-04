@@ -8,7 +8,7 @@ class StaffsController < ApplicationController
   end
 
   def show
-    @notifications = Notification.where(staff_id: @staff.id).order(created_at: :desc)  # 追加部分
+    @notifications = Notification.where(staff_id: @staff.id).order(created_at: :desc)  # 通知用
   end
 
   def edit
