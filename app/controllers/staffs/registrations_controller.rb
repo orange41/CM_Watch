@@ -24,6 +24,7 @@ class Staffs::RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       set_minimum_password_length
       Rails.logger.debug "Staff registration failed: #{resource.errors.full_messages}"
+      flash.now[:alert] = '必要事項を入力してください。'
       respond_with resource
     end
   end
@@ -37,7 +38,7 @@ class Staffs::RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     Rails.logger.debug "Redirecting after update to: #{staff_path(resource)}"
-    staff_path(resource) 
+    staff_path(resource)
   end
 
   def configure_permitted_parameters

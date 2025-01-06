@@ -1,4 +1,13 @@
 class Admins::RegistrationsController < Devise::RegistrationsController
+  def create
+    super do |resource|
+      unless resource.persisted?
+        flash.now[:alert] = '必要事項を記入してください。'
+        respond_with resource, location: new_admin_registration_path and return
+      end
+    end
+  end
+
   private
 
   def sign_up_params

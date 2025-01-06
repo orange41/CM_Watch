@@ -81,4 +81,5 @@ Rails.application.routes.draw do
       patch :mark_as_read
     end
   end
+  get 'admins', to: 'admin_panel/dashboards#show', as: 'admins_root'
 end
