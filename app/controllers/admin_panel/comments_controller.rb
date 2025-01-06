@@ -2,7 +2,7 @@ class AdminPanel::CommentsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @comments = Comment.all.order("#{sort_column} #{sort_direction}")
+    @comments = Comment.all.joins(:incident).order("#{sort_column} #{sort_direction}")
   end
 
   def approve
@@ -84,7 +84,11 @@ class AdminPanel::CommentsController < ApplicationController
   end
 
   def sort_column
-    %w[content approved incident].include?(params[:sort]) ? params[:sort] : 'content'
+    if params[:sort] == 'incident'
+      'incidents.title'
+    else
+      %w[content approved].include?(params[:sort]) ? params[:sort] : 'content'
+    end
   end
 
   def sort_direction
