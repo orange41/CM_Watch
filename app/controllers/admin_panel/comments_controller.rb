@@ -2,7 +2,7 @@ class AdminPanel::CommentsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @comments = Comment.all
+    @comments = Comment.all.order("#{sort_column} #{sort_direction}")
   end
 
   def approve
@@ -81,5 +81,13 @@ class AdminPanel::CommentsController < ApplicationController
 
   def set_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def sort_column
+    %w[content approved incident].include?(params[:sort]) ? params[:sort] : 'content'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

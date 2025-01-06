@@ -11,15 +11,16 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th>内容</th>
-      <th>状態</th>
+      <th><%= link_to '事故事例詳細', admin_panel_comments_path(sort: 'incident', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
+      <th><%= link_to '内容', admin_panel_comments_path(sort: 'content', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
+      <th><%= link_to '状態', admin_panel_comments_path(sort: 'approved', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
       <th>アクション</th>
-      <th>事故事例詳細</th>
     </tr>
   </thead>
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
+        <td><%= link_to '詳細', admin_panel_incident_path(comment.incident) %></td>
         <td><%= comment.content %></td>
         <td><%= comment.approved ? '承認済み' : '未承認' %></td>
         <td>
@@ -30,7 +31,6 @@
             <%= link_to '削除', admin_panel_comment_path(comment), method: :delete, data: { confirm: 'このコメントを削除しますか？' } %>
           <% end %>
         </td>
-        <td><%= link_to '詳細', admin_panel_incident_path(comment.incident) %></td>
       </tr>
     <% end %>
   </tbody>
