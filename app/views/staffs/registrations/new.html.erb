@@ -1,5 +1,16 @@
 <h2>スタッフ登録</h2>
 
+<% if @staff.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@staff.errors.count, "error") %> prohibited this staff from being saved:</h2>
+    <ul>
+      <% @staff.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: @staff, url: staff_registration_path, local: true do |form| %>
   <div class="field">
     <%= form.label :employee_number, '社員番号' %><br />
