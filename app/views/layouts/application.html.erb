@@ -55,8 +55,14 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container position-relative">
-        <a class="navbar-brand" href="/" style="position: absolute; left: 50%; transform: translateX(-50%);">CM Watch</a>
-        <button class="navbar-toggler position-absolute" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="right: 0;">
+        <% if admin_signed_in? %>
+            <a class="navbar-brand" href="<%= admin_panel_admin_dashboard_path %>" style="position: absolute; left: 50%; transform: translateX(-50%);">CM Watch</a>
+        <% elsif staff_signed_in? %>
+            <a class="navbar-brand" href="<%= staffs_dashboard_path %>" style="position: absolute; left: 50%; transform: translateX(-50%);">CM Watch</a>
+        <% else %>
+            <a class="navbar-brand" href="<%= root_path %>" style="position: absolute; left: 50%; transform: translateX(-50%);">CM Watch</a>
+        <% end %>
+        <button class="navbar-toggler position-absolute" type="button" data-toggle="collapse" data-target="
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
@@ -139,6 +145,7 @@
     </div>
 </nav>
 </body>
+
 
 
 <div class="container-fluid">
