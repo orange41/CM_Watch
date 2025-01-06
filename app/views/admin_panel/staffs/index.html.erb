@@ -1,10 +1,10 @@
 <h2>Staff List</h2>
 
-<table class="table table-bordered">
+<table class="table table-bordered" id="staff-table">
   <thead>
     <tr>
-      <th>社員番号</th>
-      <th>名前</th>
+      <th><%= link_to '社員番号', admin_panel_staffs_path(sort: 'employee_number', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
+      <th><%= link_to '名前', admin_panel_staffs_path(sort: 'name', direction: params[:direction] == 'asc' ? 'desc' : 'asc') %></th>
       <th>アクション</th>
     </tr>
   </thead>

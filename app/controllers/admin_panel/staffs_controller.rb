@@ -3,7 +3,7 @@ class AdminPanel::StaffsController < ApplicationController
   before_action :set_staff, only: [:destroy]
 
   def index
-    @staffs = Staff.all
+    @staffs = Staff.all.order("#{sort_column} #{sort_direction}")
   end
 
   def new
@@ -33,6 +33,14 @@ class AdminPanel::StaffsController < ApplicationController
   end
 
   def staff_params
-    params.require(:staff).permit(:employee_number, :name, :password, :password_confirmation)
+    params.require(:staff).permit(:employee_number, :name, :email, :password, :password_confirmation)
+  end
+
+  def sort_column
+    %w[employee_number name].include?(params[:sort]) ? params[:sort] : 'employee_number'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end

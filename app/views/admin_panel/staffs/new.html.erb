@@ -12,6 +12,16 @@
   </div>
 
   <div>
+    <%= f.label :email, 'メールアドレス' %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :password, 'パスワード' %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
     <%= f.submit '登録' %>
   </div>
 <% end %>
