@@ -28,13 +28,13 @@ module Staffs
     def create
       @incident = current_staff.incidents.build(incident_params)
       @incident.approved = false # 承認フラグの初期値はfalse
-
+    
       @incident.updates.each do |update|
         if update.description.blank?
           update.destroy
         end
       end
-
+    
       if @incident.save
         # 管理者に通知
         Admin.find_each do |admin|
@@ -43,13 +43,15 @@ module Staffs
             message: '新しい事故事例の承認をお願いします。'
           )
         end
-
+    
         redirect_to staffs_incidents_path, notice: '事故事例が作成され、管理者の承認を待っています。'
       else
+        flash.now[:alert] = '題名・本文・ジャンルが空欄です。' if @incident.errors[:title].present? || @incident.errors[:description].present? || @incident.errors[:category_id].present?
         Rails.logger.error @incident.errors.full_messages.join(", ") # デバッグ
         render :new
       end
     end
+    
 
     def show
       @incident = Incident.find(params[:id])
