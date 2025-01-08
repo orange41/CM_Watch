@@ -103,8 +103,8 @@ button:hover {
 }
 
 .navbar-toggler {
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
   background-color: #007bff; /* 背景色 */
   color: white; /* 文字色 */
   border-radius: 5px; /* 角を丸める */
