@@ -242,7 +242,33 @@
         <% end %>
     </div>
 </div>
+
 <style>
+  .center-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 200px); 
+      text-align: center;
+      white-space: normal; 
+      padding: 20px;
+      box-sizing: border-box;
+  }
+
+  @media (max-width: 600px) {
+      .center-content {
+          height: auto; 
+          padding: 10px;
+      }
+
+      .center-content h1 {
+          font-size: 1.5em;
+      }
+
+      .center-content p {
+          font-size: 1em; 
+      }
+  }
 
 .navbar-toggler {
     margin-bottom: 20px;
