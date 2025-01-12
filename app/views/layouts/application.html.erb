@@ -271,25 +271,19 @@
 
 
 <main role="main" class="<%= current_page?(root_path) || current_page?(new_staff_session_path) || current_page?(new_admin_session_path) || current_page?(new_staff_registration_path) || current_page?(new_admin_registration_path) ? 'col-md-12' : 'col-md-8 offset-md-2 px-4' %>">
-<!-- ほぼabout用 -->
-<% if current_page?(root_path) %>
-  <div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 100px);">
-   <section class="text-center">
-    <button class="btn btn-primary btn-lg mb-3" onclick="location.href='<%= new_staff_session_path %>'">一般ユーザー ログイン</button>
-    <button class="btn btn-secondary btn-lg mb-3" onclick="location.href='<%= new_admin_session_path %>'">管理者 ログイン</button>
-     </section> </div> <% elsif current_page?(about_path) %> <div class="center-content">
+  <% if current_page?(root_path) %>
+    <div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 100px);">
       <section class="text-center">
-       <h1>ハインリッヒの法則</h1>
-        <p>1件の重大事故に対して、29件の軽微な事故と300件のヒヤリハット（事故には至らないが危険な状況）が存在するという</p> <br>
-         普段の日常業務から年間1回程度の特殊な作業内で気づいた異常、その場でのミスの対応方法はあるか<br>
-          皆で考え共有しましょう。<br> くれぐれも起因者を責めたりすることのないように。あくまでもヒヤリハットの共有が目的です！
-           <!-- 画像など時間あれば追加 -->
-            </section>
-             </div>
-              <% else %>
- <%= yield %>
- <% end %>
- </main>
+        <button class="btn btn-primary btn-lg mb-3" onclick="location.href='<%= new_staff_session_path %>'">一般ユーザー ログイン</button>
+        <button class="btn btn-secondary btn-lg mb-3" onclick="location.href='<%= new_admin_session_path %>'">管理者 ログイン</button>
+      </section>
+    </div>
+  <% else %>
+    <%= yield %>
+  <% end %>
+</main>
+
+
 
 <footer class="footer">
     <div class="container-fluid text-center">

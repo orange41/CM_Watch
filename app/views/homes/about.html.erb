@@ -1,76 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>CM Watch</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <style>
-      html, body {
-          height: 100%;
-      }
-      body {
-          display: flex;
-          flex-direction: column;
-      }
-      .center-content {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: calc(100vh - 200px); /* ヘッダーとフッターを引いた高さ */
-          text-align: center;
-          white-space: nowrap; /* テキストを一列に表示する */
-      }
-      .center-content h1,
-      .center-content p {
-          margin: 0;
-      }
-      header, footer {
-          height: 100px;
-      }
-      footer {
-          margin-top: auto;
-          text-align: center;
-      }
-      .custom-title {
-          white-space: nowrap; /* テキストを一列に表示する */
-      }
-    </style>
-</head>
-<body>
-    <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">CM Watch</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
-                <% if admin_signed_in? %>
-                    <li class="nav-item"><%= link_to '管理ダッシュボード', admin_panel_admin_dashboard_path, class: "nav-link" %></li>
-                    <li class="nav-item"><%= link_to 'スタッフ管理', admin_panel_staffs_path, class: "nav-link" %></li>
-                    <li class="nav-item"><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
-                <% elsif staff_signed_in? %>
-                    <li class="nav-item"><%= link_to 'スタッフダッシュボード', staffs_dashboard_path, class: "nav-link" %></li>
-                    <li class="nav-item"><%= link_to '事故事例', staffs_incidents_path, class: "nav-link" %></li>
-                    <li class="nav-item"><%= link_to 'プロフィール', current_staff, class: "nav-link" %></li>
-                    <li class="nav-item"><%= link_to 'ログアウト', destroy_staff_session_path, method: :delete, class: "nav-link" %></li>
-                <% else %>
-                    <li class="nav-item"><%= link_to 'ログイン', new_staff_session_path, class: "nav-link" %></li>
-                    <li class="nav-item"><%= link_to '管理者ログイン', new_admin_session_path, class: "nav-link" %></li>
-                <% end %>
-                <li class="nav-item"><%= link_to 'About', about_path, class: "nav-link" %></li>
-            </ul>
-        </div>
-    </nav>
-
-    <%= yield %>
-
-    <footer>
-        <p>山田ファシリティーサービス株式会社 | XX-XXXX-XXXX</p>
-    </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+<div class="center-content">
+  <section class="text-center">
+    <h1>ハインリッヒの法則</h1>
+    <p>1件の重大事故に対して、29件の軽微な事故と300件のヒヤリハット（事故には至らないが危険な状況）が存在するという</p>
+    <br>
+    普段の日常業務から年間1回程度の特殊な作業内で気づいた異常、その場でのミスの対応方法はあるか<br>
+    皆で考え共有しましょう。<br>
+    くれぐれも起因者を責めたりすることのないように。あくまでもヒヤリハットの共有が目的です！
+    <!-- 画像など時間あれば追加 -->
+  </section>
+</div>
